@@ -2,7 +2,7 @@ package weather.way.data.network.apiResponse
 
 import com.google.gson.annotations.SerializedName
 
-data class MainWeatherData(
+data class MainWeatherDto(
 
     @SerializedName("temp") val temp: Double,
     @SerializedName("feels_like") val feels_like: Double,

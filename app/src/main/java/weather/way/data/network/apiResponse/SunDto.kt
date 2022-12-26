@@ -2,7 +2,7 @@ package weather.way.data.network.apiResponse
 
 import com.google.gson.annotations.SerializedName
 
-data class Sun(
+data class SunDto(
 
     @SerializedName("type") val type: Int,
     @SerializedName("id") val id: Int,
