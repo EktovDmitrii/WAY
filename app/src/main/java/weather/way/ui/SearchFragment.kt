@@ -11,6 +11,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.koin.android.ext.android.get
 import weather.way.Constants.FRAGMENT_SEARCH_BINDING_NULL
+import weather.way.R
 import weather.way.databinding.FragmentSearchBinding
 import weather.way.domain.ApiRepository
 import weather.way.domain.useCases.GetWeatherInCityUseCase
@@ -25,10 +26,6 @@ class SearchFragment : Fragment() {
     val binding: FragmentSearchBinding
         get() = _binding ?: throw RuntimeException(FRAGMENT_SEARCH_BINDING_NULL)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,8 +39,16 @@ class SearchFragment : Fragment() {
         binding.btnSearch.setOnClickListener {
             val cityName = binding.etSearchCity.text.toString()
             searchWeather(cityName)
+
         }
 
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        compositeDisposable.dispose()
     }
 
     private fun searchWeather(cityName: String) {
@@ -55,12 +60,15 @@ class SearchFragment : Fragment() {
             }, {
                 Log.d("WEATHER_CHECK", "No data found")
             })
+        compositeDisposable.add(disposable)
+        launchWeatherFragment(cityName)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        compositeDisposable.dispose()
+    private fun launchWeatherFragment(cityName: String) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, WeatherFragment.newInstance(cityName))
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {
