@@ -5,8 +5,8 @@ import weather.way.domain.ApiRepository
 import weather.way.domain.model.*
 
 class RepositoryImpl(private val apiService: ApiService) : ApiRepository {
-    override fun getCurrentWeatherInCity(): Single<CommonInfo> {
-        return apiService.getCurrentWeatherInCity("London").map { it ->
+    override fun getCurrentWeatherInCity(cityName: String): Single<CommonInfo> {
+        return apiService.getCurrentWeatherInCity(cityName).map { it ->
             CommonInfo(
                 coord = Coord(
                     lon = it.coord.lon,

@@ -5,7 +5,7 @@ import weather.way.domain.ApiRepository
 import weather.way.domain.model.CommonInfo
 
 class GetWeatherInCityUseCase(private val repository: ApiRepository) {
-    fun getWeatherInCity(): Single<CommonInfo> {
-        return repository.getCurrentWeatherInCity()
+    fun getWeatherInCity(cityName: String): Single<CommonInfo> {
+        return repository.getCurrentWeatherInCity(cityName)
     }
 }

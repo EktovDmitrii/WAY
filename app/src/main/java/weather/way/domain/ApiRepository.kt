@@ -5,5 +5,5 @@ import weather.way.domain.model.CommonInfo
 
 interface ApiRepository {
 
-    fun getCurrentWeatherInCity(): Single<CommonInfo>
+    fun getCurrentWeatherInCity(cityName: String): Single<CommonInfo>
 }
