@@ -9,14 +9,16 @@ import androidx.fragment.app.Fragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import moxy.MvpAppCompatFragment
 import org.koin.android.ext.android.get
 import weather.way.Constants.FRAGMENT_SEARCH_BINDING_NULL
 import weather.way.R
 import weather.way.databinding.FragmentSearchBinding
 import weather.way.domain.ApiRepository
+import weather.way.domain.model.CommonInfo
 import weather.way.domain.useCases.GetWeatherInCityUseCase
 
-class SearchFragment : Fragment() {
+class SearchFragment : MvpAppCompatFragment() {
 
     val compositeDisposable = CompositeDisposable()
     val repository = get<ApiRepository>()
@@ -45,6 +47,7 @@ class SearchFragment : Fragment() {
     }
 
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -57,16 +60,16 @@ class SearchFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.d("WEATHER_CHECK", it.toString())
+                launchWeatherFragment(it)
             }, {
                 Log.d("WEATHER_CHECK", "No data found")
             })
         compositeDisposable.add(disposable)
-        launchWeatherFragment(cityName)
     }
 
-    private fun launchWeatherFragment(cityName: String) {
+    private fun launchWeatherFragment(commonInfo: CommonInfo) {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, WeatherFragment.newInstance(cityName))
+            .replace(R.id.fragment_container_view, WeatherFragment.newInstance(commonInfo))
             .addToBackStack(null)
             .commit()
     }

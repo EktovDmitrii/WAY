@@ -4,6 +4,10 @@ buildscript {
         google()
         mavenCentral()
     }
+    ext{
+        moxyVersion = '2.0.2'
+
+    }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.3"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"

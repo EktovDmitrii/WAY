@@ -4,6 +4,8 @@ import org.koin.dsl.module
 import weather.way.data.network.ApiFactory
 import weather.way.data.network.RepositoryImpl
 import weather.way.domain.ApiRepository
+import weather.way.ui.AbstractFragmentPresenter
+import weather.way.ui.MyPresenterImpl
 
 val appModule = module {
     single {
@@ -11,5 +13,10 @@ val appModule = module {
     }
     factory<ApiRepository> {
         RepositoryImpl(get())
+    }
+    factory<AbstractFragmentPresenter> {
+        MyPresenterImpl(
+            get()
+        )
     }
 }

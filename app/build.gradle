@@ -71,5 +71,12 @@ dependencies {
 
     implementation "io.insert-koin:koin-android:3.2.0-beta-1"
 
+    //moxy
+    implementation "com.github.moxy-community:moxy:$moxyVersion"
+    implementation "com.github.moxy-community:moxy-androidx:$moxyVersion"
+    implementation "com.github.moxy-community:moxy-material:$moxyVersion"
+    implementation "com.github.moxy-community:moxy-ktx:$moxyVersion"
+    kapt "com.github.moxy-community:moxy-compiler:$moxyVersion"
+
 //    implementation "androidx.recyclerview:recyclerview:{latest-version}"
 }
