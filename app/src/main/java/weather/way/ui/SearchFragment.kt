@@ -10,9 +10,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpAppCompatFragment
 import org.koin.android.ext.android.get
-import weather.way.Constants.FRAGMENT_SEARCH_BINDING_NULL
+import weather.way.utils.Constants.FRAGMENT_SEARCH_BINDING_NULL
 import weather.way.R
-import weather.way.data.network.ApiFactory
 import weather.way.databinding.FragmentSearchBinding
 import weather.way.domain.ApiRepository
 import weather.way.domain.model.CommonInfo

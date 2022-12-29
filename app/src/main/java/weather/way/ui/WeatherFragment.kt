@@ -8,10 +8,11 @@ import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import org.koin.android.ext.android.get
-import weather.way.Constants
-import weather.way.Constants.PATH_PARAM_CITY_NAME
+import weather.way.utils.Constants
+import weather.way.utils.Constants.PATH_PARAM_CITY_NAME
 import weather.way.databinding.FragmentWeatherBinding
 import weather.way.domain.model.CommonInfo
+import weather.way.utils.convertFahrenheitToCelsius
 
 class WeatherFragment : MvpAppCompatFragment(), MyView {
 
@@ -59,9 +60,11 @@ class WeatherFragment : MvpAppCompatFragment(), MyView {
 
     override fun showHourlyForecast(commonInfo: CommonInfo) {
         binding.tvCityName.text = commonInfo.city.name
-        binding.tvCurrentTemp.text = commonInfo.list.get(2).main.temp.toString()
-        binding.tvMaxDayTemp.text = commonInfo.list.get(2).main.temp_max.toString()
-        binding.tvMinDayTemp.text = commonInfo.list.get(2).main.temp_min.toString()
+        with(commonInfo.list[2].main) {
+            binding.tvCurrentTemp.text = convertFahrenheitToCelsius(temp).toString()
+            binding.tvMaxDayTemp.text = convertFahrenheitToCelsius(temp_max).toString()
+            binding.tvMinDayTemp.text = convertFahrenheitToCelsius(temp_min).toString()
+        }
         setAdapter()
         adapter?.myData = commonInfo.list
         adapter?.submitList(commonInfo.list)
