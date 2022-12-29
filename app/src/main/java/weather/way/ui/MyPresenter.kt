@@ -1,8 +1,10 @@
 package weather.way.ui
 
+import weather.way.domain.model.HourlyForecast
+
 interface MyPresenter {
 
-    fun getWeatherInCity(cityName: String)
+    fun getHourlyForecast()
 
     fun onDestroy()
 }

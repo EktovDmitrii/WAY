@@ -6,26 +6,23 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.InjectViewState
 import weather.way.domain.ApiRepository
-import weather.way.domain.model.CommonInfo
-import weather.way.domain.useCases.GetWeatherInCityUseCase
+import weather.way.domain.useCases.GetHourlyForecastUseCase
 
 @InjectViewState
 class MyPresenterImpl(
     private val repository: ApiRepository,
 ) : AbstractFragmentPresenter() {
 
-    private val getWeatherInCityUseCase = GetWeatherInCityUseCase(repository)
+    private val getHourlyForecastUseCase = GetHourlyForecastUseCase(repository)
+
     val compositeDisposable = CompositeDisposable()
 
-
-    override fun getWeatherInCity(cityName: String) {
-
-        val disposable = getWeatherInCityUseCase.getWeatherInCity(cityName)
+    override fun getHourlyForecast() {
+        val disposable = getHourlyForecastUseCase.getHourlyForecast()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                viewState.showWeatherInCity(it)
-
+                viewState.showHourlyForecast(it)
                 Log.d("WEATHER_CHECK", it.toString())
             }, {
                 Log.d("WEATHER_CHECK", "No data found")

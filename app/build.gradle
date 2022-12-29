@@ -78,5 +78,7 @@ dependencies {
     implementation "com.github.moxy-community:moxy-ktx:$moxyVersion"
     kapt "com.github.moxy-community:moxy-compiler:$moxyVersion"
 
-//    implementation "androidx.recyclerview:recyclerview:{latest-version}"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation 'androidx.cardview:cardview:1.0.0'
+
 }

@@ -6,8 +6,9 @@ import moxy.viewstate.strategy.StateStrategyType
 import weather.way.domain.model.CommonInfo
 
 @StateStrategyType(SingleStateStrategy::class)
-interface MyView: MvpView {
+interface MyView : MvpView {
 
-fun showWeatherInCity(commonInfo: CommonInfo)
+
+    fun showHourlyForecast(commonInfo: CommonInfo)
 
 }

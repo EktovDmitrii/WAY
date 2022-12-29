@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -15,6 +14,8 @@ import weather.way.databinding.FragmentWeatherBinding
 import weather.way.domain.model.CommonInfo
 
 class WeatherFragment : MvpAppCompatFragment(), MyView {
+
+    private var adapter: WeatherPerHourAdapter? = null
 
     @InjectPresenter
     lateinit var presenter: AbstractFragmentPresenter
@@ -37,28 +38,37 @@ class WeatherFragment : MvpAppCompatFragment(), MyView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val weather = getWeatherInfo()
-presenter.viewState.showWeatherInCity(weather)
+        presenter.viewState.showHourlyForecast(weather)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        adapter = null
+    }
+
+
+    private fun setAdapter() {
+        adapter = WeatherPerHourAdapter()
+        binding.rvWeatherPerHour.adapter = adapter
     }
 
     private fun getWeatherInfo(): CommonInfo {
         return requireArguments().getSerializable(PATH_PARAM_CITY_NAME) as CommonInfo
     }
 
-    override fun showWeatherInCity(commonInfo: CommonInfo) {
-            binding.tvCityName.text = commonInfo.name
-            binding.tvCurrentTemp.text = commonInfo.main.temp.toString()
-            binding.tvMaxDayTemp.text = commonInfo.main.temp_max.toString()
-            binding.tvMinDayTemp.text = commonInfo.main.temp_min.toString()
+    override fun showHourlyForecast(commonInfo: CommonInfo) {
+        binding.tvCityName.text = commonInfo.city.name
+        binding.tvCurrentTemp.text = commonInfo.list.get(2).main.temp.toString()
+        binding.tvMaxDayTemp.text = commonInfo.list.get(2).main.temp_max.toString()
+        binding.tvMinDayTemp.text = commonInfo.list.get(2).main.temp_min.toString()
+        setAdapter()
+        adapter?.myData = commonInfo.list
+        adapter?.submitList(commonInfo.list)
 
     }
 
-    private fun setAllBinds(weather: CommonInfo) {
-    }
+
 
     companion object {
         fun newInstance(commonInfo: CommonInfo) =

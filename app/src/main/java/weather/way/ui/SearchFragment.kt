@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -13,16 +12,18 @@ import moxy.MvpAppCompatFragment
 import org.koin.android.ext.android.get
 import weather.way.Constants.FRAGMENT_SEARCH_BINDING_NULL
 import weather.way.R
+import weather.way.data.network.ApiFactory
 import weather.way.databinding.FragmentSearchBinding
 import weather.way.domain.ApiRepository
 import weather.way.domain.model.CommonInfo
-import weather.way.domain.useCases.GetWeatherInCityUseCase
+import weather.way.domain.useCases.GetHourlyForecastUseCase
 
 class SearchFragment : MvpAppCompatFragment() {
 
+
     val compositeDisposable = CompositeDisposable()
     val repository = get<ApiRepository>()
-    val getWeatherInCityUseCase = GetWeatherInCityUseCase(repository)
+    val getHourlyForecastUseCase = GetHourlyForecastUseCase(repository)
 
     private var _binding: FragmentSearchBinding? = null
     val binding: FragmentSearchBinding
@@ -40,13 +41,9 @@ class SearchFragment : MvpAppCompatFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnSearch.setOnClickListener {
             val cityName = binding.etSearchCity.text.toString()
-            searchWeather(cityName)
-
+            searchWeather()
         }
-
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -54,15 +51,15 @@ class SearchFragment : MvpAppCompatFragment() {
         compositeDisposable.dispose()
     }
 
-    private fun searchWeather(cityName: String) {
-        val disposable = getWeatherInCityUseCase.getWeatherInCity(cityName)
+    private fun searchWeather() {
+        val disposable = getHourlyForecastUseCase.getHourlyForecast()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.d("WEATHER_CHECK", it.toString())
                 launchWeatherFragment(it)
             }, {
-                Log.d("WEATHER_CHECK", "No data found")
+                Log.d("WEATHER_CHECK", "Ебаный сука нахуй нет данных")
             })
         compositeDisposable.add(disposable)
     }
