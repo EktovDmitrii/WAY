@@ -44,38 +44,26 @@
             tools:text="15" />
 
         <TextView
-            android:id="@+id/tv_max_day_temp"
+            android:id="@+id/tv_fells_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="30sp"
-            app:layout_constraintEnd_toStartOf="@id/slash"
+            app:layout_constraintEnd_toStartOf="@id/tv_feels_like_value"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_current_temp"
             android:layout_marginEnd="3dp"
-            tools:text="20" />
+            android:text="@string/feels_like" />
 
         <TextView
-            android:id="@+id/slash"
+            android:id="@+id/tv_feels_like_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/silver"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toStartOf="@id/tv_min_day_temp"
-            app:layout_constraintStart_toEndOf="@id/tv_max_day_temp"
-            app:layout_constraintTop_toBottomOf="@id/tv_current_temp"
-            android:layout_marginStart="3dp"
-            android:text="@string/slash" />
-
-        <TextView
-            android:id="@+id/tv_min_day_temp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/silver"
+            android:textColor="@color/white"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/slash"
+            app:layout_constraintStart_toEndOf="@id/tv_fells_like"
             app:layout_constraintTop_toBottomOf="@id/tv_current_temp"
             android:layout_marginStart="3dp"
             tools:text="7" />
@@ -88,7 +76,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/slash"
+            app:layout_constraintTop_toBottomOf="@id/tv_fells_like"
             android:layout_margin="10dp"
             tools:listitem="@layout/weather_per_hour_card" />
 

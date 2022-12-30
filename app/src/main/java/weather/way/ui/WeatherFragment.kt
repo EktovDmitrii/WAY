@@ -12,6 +12,7 @@ import weather.way.utils.Constants
 import weather.way.utils.Constants.PATH_PARAM_CITY_NAME
 import weather.way.databinding.FragmentWeatherBinding
 import weather.way.domain.model.CommonInfo
+import weather.way.utils.Constants.CELSIUS
 import weather.way.utils.convertFahrenheitToCelsius
 
 class WeatherFragment : MvpAppCompatFragment(), MyView {
@@ -61,9 +62,8 @@ class WeatherFragment : MvpAppCompatFragment(), MyView {
     override fun showHourlyForecast(commonInfo: CommonInfo) {
         binding.tvCityName.text = commonInfo.city.name
         with(commonInfo.list[2].main) {
-            binding.tvCurrentTemp.text = convertFahrenheitToCelsius(temp).toString()
-            binding.tvMaxDayTemp.text = convertFahrenheitToCelsius(temp_max).toString()
-            binding.tvMinDayTemp.text = convertFahrenheitToCelsius(temp_min).toString()
+            binding.tvCurrentTemp.text = convertFahrenheitToCelsius(temp).toString() + CELSIUS
+            binding.tvFeelsLikeValue.text = convertFahrenheitToCelsius(feels_like).toString() + CELSIUS
         }
         setAdapter()
         adapter?.myData = commonInfo.list
