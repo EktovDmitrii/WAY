@@ -7,5 +7,5 @@ interface ApiRepository {
 
 //    fun getCurrentWeatherInCity(cityName: String): Single<CommonInfo>
 
-    fun getHourlyForecast(): Single<CommonInfo>
+    fun getHourlyForecast(cityName: String): Single<CommonInfo>
 }

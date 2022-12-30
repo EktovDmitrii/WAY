@@ -10,15 +10,14 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpAppCompatFragment
 import org.koin.android.ext.android.get
-import weather.way.utils.Constants.FRAGMENT_SEARCH_BINDING_NULL
 import weather.way.R
 import weather.way.databinding.FragmentSearchBinding
 import weather.way.domain.ApiRepository
 import weather.way.domain.model.CommonInfo
 import weather.way.domain.useCases.GetHourlyForecastUseCase
+import weather.way.utils.Constants.FRAGMENT_SEARCH_BINDING_NULL
 
 class SearchFragment : MvpAppCompatFragment() {
-
 
     val compositeDisposable = CompositeDisposable()
     val repository = get<ApiRepository>()
@@ -40,7 +39,7 @@ class SearchFragment : MvpAppCompatFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnSearch.setOnClickListener {
             val cityName = binding.etSearchCity.text.toString()
-            searchWeather()
+            searchWeather(cityName)
         }
     }
 
@@ -50,8 +49,8 @@ class SearchFragment : MvpAppCompatFragment() {
         compositeDisposable.dispose()
     }
 
-    private fun searchWeather() {
-        val disposable = getHourlyForecastUseCase.getHourlyForecast()
+    private fun searchWeather(cityName: String) {
+        val disposable = getHourlyForecastUseCase.getHourlyForecast(cityName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
