@@ -23,7 +23,7 @@ interface ApiService {
     companion object {
         private const val PATH_PARAM_CITY_NAME = "q"
         private const val TIME_PERIOD = "exclude"
-        private const val TIME_PERIOD_NAME = "hourly,daily"
+        private const val TIME_PERIOD_NAME = " "
         private const val QUERY_PARAM_APP_ID = "appid"
         private const val APP_ID_VALUE = "d5242d25373507cc264933041d3306df"
     }

@@ -8,5 +8,6 @@ object Constants {
     const val CLOUDS = "Clouds"
     const val RAIN = "Rain"
     const val SNOW = "Snow"
+    const val SUN = "Clear"
 
 }

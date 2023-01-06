@@ -14,6 +14,7 @@ import weather.way.databinding.FragmentWeatherBinding
 import weather.way.domain.model.CommonInfo
 import weather.way.utils.Constants.CELSIUS
 import weather.way.utils.convertFahrenheitToCelsius
+import weather.way.utils.convertTimestampToTime
 
 class WeatherFragment : MvpAppCompatFragment(), MyView {
 
@@ -61,6 +62,8 @@ class WeatherFragment : MvpAppCompatFragment(), MyView {
 
     override fun showHourlyForecast(commonInfo: CommonInfo) {
         binding.tvCityName.text = commonInfo.city.name
+        binding.tvSunriseValue.text = convertTimestampToTime(commonInfo.city.sunrise)
+        binding.tvSunsetValue.text = convertTimestampToTime(commonInfo.city.sunset)
         with(commonInfo.list[2].main) {
             binding.tvCurrentTemp.text = convertFahrenheitToCelsius(temp).toString() + CELSIUS
             binding.tvFeelsLikeValue.text = convertFahrenheitToCelsius(feels_like).toString() + CELSIUS

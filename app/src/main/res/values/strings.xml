@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">WAY</string>
-    <string name="feels_like">Feels like:</string>
+    <string name="feels_like">Feels like</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+
 </resources>

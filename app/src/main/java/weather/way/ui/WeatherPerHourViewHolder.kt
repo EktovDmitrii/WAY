@@ -12,6 +12,7 @@ import weather.way.utils.Constants.CELSIUS
 import weather.way.utils.Constants.CLOUDS
 import weather.way.utils.Constants.RAIN
 import weather.way.utils.Constants.SNOW
+import weather.way.utils.Constants.SUN
 import weather.way.utils.convertFahrenheitToCelsius
 import weather.way.utils.convertTimestampToTime
 
@@ -39,6 +40,11 @@ class WeatherPerHourViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
         }
         if (hourlyForecast.weather[0].main == SNOW) {
             Glide.with(itemView).load(R.drawable.ic_snow)
+                .into(binding.ivWeather)
+        }
+        if (hourlyForecast.weather[0].main == SUN) {
+            Glide.with(itemView).load(R.drawable.ic_sun_icon
+            )
                 .into(binding.ivWeather)
         }
     }
