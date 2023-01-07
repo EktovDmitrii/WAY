@@ -2,7 +2,7 @@ package weather.way.ui
 
 interface MyPresenter {
 
-    fun getHourlyForecast(cityName: String)
+    fun getHourlyForecast(lon: String, lat: String)
 
     fun onDestroy()
 }

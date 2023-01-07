@@ -17,8 +17,8 @@ class MyPresenterImpl(
 
     val compositeDisposable = CompositeDisposable()
 
-    override fun getHourlyForecast(cityName: String) {
-        val disposable = getHourlyForecastUseCase.getHourlyForecast(cityName)
+    override fun getHourlyForecast(lon: String, lat: String) {
+        val disposable = getHourlyForecastUseCase.getHourlyForecast(lon, lat)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

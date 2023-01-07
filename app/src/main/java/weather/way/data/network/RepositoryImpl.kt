@@ -51,8 +51,8 @@ class RepositoryImpl(private val apiService: ApiService) : ApiRepository {
 //        }
 //    }
 
-    override fun getHourlyForecast(cityName: String): Single<CommonInfo> {
-        return apiService.getHourlyForecast(cityName).map { it ->
+    override fun getHourlyForecast(lon: String, lat: String): Single<CommonInfo> {
+        return apiService.getHourlyForecast(lon, lat).map { it ->
             CommonInfo(
                 cod = it.cod,
                 message = it.message,
