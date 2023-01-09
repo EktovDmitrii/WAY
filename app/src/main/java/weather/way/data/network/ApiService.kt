@@ -14,9 +14,17 @@ interface ApiService {
 //    ): Single<ApiResponseMain>
 
     @GET("data/2.5/forecast")
-    fun getHourlyForecast(
+    fun getHourlyForecastByGeo(
         @Query(PATH_PARAM_LON) lon: String,
         @Query(PATH_PARAM_LAT) lat: String,
+        @Query(TIME_PERIOD) exclude: String = TIME_PERIOD_NAME,
+        @Query(QUERY_PARAM_APP_ID) appId: String = APP_ID_VALUE,
+    ): Single<ApiResponseHourlyForecast>
+
+
+    @GET("data/2.5/forecast")
+    fun getHourlyForecastByName(
+        @Query(PATH_PARAM_NAME) cityName: String,
         @Query(TIME_PERIOD) exclude: String = TIME_PERIOD_NAME,
         @Query(QUERY_PARAM_APP_ID) appId: String = APP_ID_VALUE,
     ): Single<ApiResponseHourlyForecast>
@@ -24,6 +32,7 @@ interface ApiService {
     companion object {
         private const val PATH_PARAM_LON = "lon"
         private const val PATH_PARAM_LAT = "lat"
+        private const val PATH_PARAM_NAME = "q"
         private const val TIME_PERIOD = "exclude"
         private const val TIME_PERIOD_NAME = "hourly,daily"
         private const val QUERY_PARAM_APP_ID = "appid"

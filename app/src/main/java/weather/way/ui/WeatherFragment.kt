@@ -8,11 +8,13 @@ import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import org.koin.android.ext.android.get
-import weather.way.utils.Constants
-import weather.way.utils.Constants.PATH_PARAM_CITY_NAME
 import weather.way.databinding.FragmentWeatherBinding
 import weather.way.domain.model.CommonInfo
+import weather.way.utils.Constants
 import weather.way.utils.Constants.CELSIUS
+import weather.way.utils.Constants.EMPTY_STRING
+import weather.way.utils.Constants.LAT
+import weather.way.utils.Constants.LON
 import weather.way.utils.convertFahrenheitToCelsius
 import weather.way.utils.convertTimestampToTime
 
@@ -40,8 +42,7 @@ class WeatherFragment : MvpAppCompatFragment(), MyView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val weather = getWeatherInfo()
-        presenter.viewState.showHourlyForecast(weather)
+        presenter.getHourlyForecast(getCityLon(), getCityLat())
     }
 
     override fun onDestroyView() {
@@ -56,8 +57,12 @@ class WeatherFragment : MvpAppCompatFragment(), MyView {
         binding.rvWeatherPerHour.adapter = adapter
     }
 
-    private fun getWeatherInfo(): CommonInfo {
-        return requireArguments().getSerializable(PATH_PARAM_CITY_NAME) as CommonInfo
+    private fun getCityLon(): String {
+        return requireArguments().getString(LON, EMPTY_STRING)
+    }
+
+    private fun getCityLat(): String {
+        return requireArguments().getString(LAT, EMPTY_STRING)
     }
 
     override fun showHourlyForecast(commonInfo: CommonInfo) {
@@ -66,21 +71,25 @@ class WeatherFragment : MvpAppCompatFragment(), MyView {
         binding.tvSunsetValue.text = convertTimestampToTime(commonInfo.city.sunset)
         with(commonInfo.list[2].main) {
             binding.tvCurrentTemp.text = convertFahrenheitToCelsius(temp).toString() + CELSIUS
-            binding.tvFeelsLikeValue.text = convertFahrenheitToCelsius(feels_like).toString() + CELSIUS
+            binding.tvFeelsLikeValue.text =
+                convertFahrenheitToCelsius(feels_like).toString() + CELSIUS
         }
         setAdapter()
         adapter?.myData = commonInfo.list
         adapter?.submitList(commonInfo.list)
-
+        binding.btnSettings.setOnClickListener {
+            val cityName = binding.etCityNameSearch.text.toString()
+            presenter.getForecastByName(cityName)
+        }
     }
 
-
-
     companion object {
-        fun newInstance(commonInfo: CommonInfo) =
+        fun newInstance(lon: String, lat: String) =
             WeatherFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(PATH_PARAM_CITY_NAME, commonInfo)
+                    putString(LON, lon)
+                }.apply {
+                    putString(LAT, lat)
                 }
             }
     }

@@ -5,7 +5,7 @@ import weather.way.domain.model.CommonInfo
 
 interface ApiRepository {
 
-//    fun getCurrentWeatherInCity(cityName: String): Single<CommonInfo>
+    fun getHourlyForecastByName(cityName: String): Single<CommonInfo>
 
-    fun getHourlyForecast(lon: String, lat: String): Single<CommonInfo>
+    fun getHourlyForecastByGeo(lon: String, lat: String): Single<CommonInfo>
 }

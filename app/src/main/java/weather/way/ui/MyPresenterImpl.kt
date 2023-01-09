@@ -6,6 +6,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.InjectViewState
 import weather.way.domain.ApiRepository
+import weather.way.domain.useCases.GetForecastByNameUseCase
 import weather.way.domain.useCases.GetHourlyForecastUseCase
 
 @InjectViewState
@@ -14,6 +15,7 @@ class MyPresenterImpl(
 ) : AbstractFragmentPresenter() {
 
     private val getHourlyForecastUseCase = GetHourlyForecastUseCase(repository)
+    private val getForecastByNameUseCase = GetForecastByNameUseCase(repository)
 
     val compositeDisposable = CompositeDisposable()
 
@@ -29,6 +31,18 @@ class MyPresenterImpl(
             })
         compositeDisposable.add(disposable)
     }
+
+    override fun getForecastByName(cityName: String) {
+        val disposable = getForecastByNameUseCase.getForecastByName(cityName)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                viewState.showHourlyForecast(it)
+                Log.d("WEATHER_CHECK", it.toString())
+            }, {
+                Log.d("WEATHER_CHECK", "No data found")
+            })
+        compositeDisposable.add(disposable)    }
 
     override fun onDestroy() {
         compositeDisposable.dispose()

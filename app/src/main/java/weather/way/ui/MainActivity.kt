@@ -21,7 +21,6 @@ import weather.way.domain.useCases.GetHourlyForecastUseCase
 import weather.way.utils.GeoLocationManager
 
 class MainActivity : AppCompatActivity() {
-    private val weatherFragment = WeatherFragment()
     private lateinit var locationManager: GeoLocationManager
     private var locationTrackingRequested = false
     private val LOCATION_PERMISSION_CODE = 1000
@@ -41,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 lon = location.longitude.toString()
                 Log.d("MainActivityy", "$lat $lon")
                 searchWeather(lon, lat)
+                locationManager.stopLocationTracking()
             }
         }
     }
@@ -118,16 +118,16 @@ class MainActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.d("WEATHER_CHECK", it.toString())
-                launchWeatherFragment(it)
+                launchWeatherFragment(lon, lat)
             }, {
                 Log.d("WEATHER_CHECK", "Ебаный сука нахуй нет данных")
             })
         compositeDisposable.add(disposable)
     }
 
-    private fun launchWeatherFragment(commonInfo: CommonInfo) {
+    private fun launchWeatherFragment(lon: String, lat: String) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, WeatherFragment.newInstance(commonInfo))
+            .replace(R.id.fragment_container_view, WeatherFragment.newInstance(lon, lat))
             .addToBackStack(null)
             .commit()
     }
