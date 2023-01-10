@@ -51,7 +51,6 @@ class WeatherFragment : MvpAppCompatFragment(), MyView {
         adapter = null
     }
 
-
     private fun setAdapter() {
         adapter = WeatherPerHourAdapter()
         binding.rvWeatherPerHour.adapter = adapter
@@ -78,8 +77,7 @@ class WeatherFragment : MvpAppCompatFragment(), MyView {
         adapter?.myData = commonInfo.list
         adapter?.submitList(commonInfo.list)
         binding.btnSettings.setOnClickListener {
-            val cityName = binding.etCityNameSearch.text.toString()
-            presenter.getForecastByName(cityName)
+            presenter.getForecastByName(binding.etCityNameSearch.text.toString())
         }
     }
 

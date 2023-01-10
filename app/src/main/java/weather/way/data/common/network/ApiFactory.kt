@@ -1,4 +1,4 @@
-package weather.way.data.network
+package weather.way.data.common.network
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory

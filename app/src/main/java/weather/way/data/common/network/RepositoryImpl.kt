@@ -1,4 +1,4 @@
-package weather.way.data.network
+package weather.way.data.common.network
 
 import io.reactivex.rxjava3.core.Single
 import weather.way.domain.ApiRepository
@@ -34,9 +34,6 @@ class RepositoryImpl(private val apiService: ApiService) : ApiRepository {
                                 icon = weatherDto.icon
                             )
                         },
-                        clouds = Clouds(
-                            all = hourlyForecastDto.clouds.all
-                        ),
                         wind = Wind(
                             speed = hourlyForecastDto.wind.speed,
                             deg = hourlyForecastDto.wind.deg,
@@ -44,9 +41,6 @@ class RepositoryImpl(private val apiService: ApiService) : ApiRepository {
                         ),
                         visibility = hourlyForecastDto.visibility,
                         pop = hourlyForecastDto.pop,
-                        sys = Sys(
-                            pod = hourlyForecastDto.sys.pod
-                        ),
                         dt_txt = hourlyForecastDto.dt_txt
                     )
                 },
@@ -95,9 +89,6 @@ class RepositoryImpl(private val apiService: ApiService) : ApiRepository {
                                 icon = weatherDto.icon
                             )
                         },
-                        clouds = Clouds(
-                            all = hourlyForecastDto.clouds.all
-                        ),
                         wind = Wind(
                             speed = hourlyForecastDto.wind.speed,
                             deg = hourlyForecastDto.wind.deg,
@@ -105,9 +96,6 @@ class RepositoryImpl(private val apiService: ApiService) : ApiRepository {
                         ),
                         visibility = hourlyForecastDto.visibility,
                         pop = hourlyForecastDto.pop,
-                        sys = Sys(
-                            pod = hourlyForecastDto.sys.pod
-                        ),
                         dt_txt = hourlyForecastDto.dt_txt
                     )
                 },

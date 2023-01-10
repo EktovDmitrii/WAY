@@ -1,6 +1,5 @@
 package weather.way.domain.model
 
-import weather.way.data.network.apiResponse.CityDto
 import java.io.Serializable
 
 data class CommonInfo(

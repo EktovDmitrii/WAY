@@ -1,5 +1,7 @@
 package weather.way.domain.model
 
+import weather.way.data.common.dataBase.entities.CityDbModel
+
 data class City(
     val id: Int,
     val name: String,
@@ -10,3 +12,8 @@ data class City(
     val sunrise: Int,
     val sunset: Int
 )
+fun City.toDbEntity(): CityDbModel {
+    return CityDbModel(
+        id, name, coord.lon, coord.lat, country, population, timezone, sunrise, sunset
+    )
+}

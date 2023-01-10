@@ -1,9 +1,9 @@
-package weather.way.data.network
+package weather.way.data.common.network
 
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
-import weather.way.data.network.apiResponse.ApiResponseHourlyForecast
+import weather.way.data.common.network.apiResponse.ApiResponseHourlyForecast
 
 interface ApiService {
 //

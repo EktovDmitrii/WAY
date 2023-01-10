@@ -1,8 +1,8 @@
 package weather.way
 
 import org.koin.dsl.module
-import weather.way.data.network.ApiFactory
-import weather.way.data.network.RepositoryImpl
+import weather.way.data.common.network.ApiFactory
+import weather.way.data.common.network.RepositoryImpl
 import weather.way.domain.ApiRepository
 import weather.way.ui.AbstractFragmentPresenter
 import weather.way.ui.MyPresenterImpl
