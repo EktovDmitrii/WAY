@@ -1,11 +1,19 @@
 package weather.way
 
+import androidx.room.Room
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import weather.way.data.common.dataBase.AppDatabase
+import weather.way.data.common.dataBase.DaoRepositoryImpl
+import weather.way.data.common.dataBase.WeatherDao
 import weather.way.data.common.network.ApiFactory
 import weather.way.data.common.network.RepositoryImpl
 import weather.way.domain.ApiRepository
-import weather.way.ui.AbstractFragmentPresenter
-import weather.way.ui.MyPresenterImpl
+import weather.way.domain.DaoRepository
+import weather.way.ui.AbstractWeatherPresenter
+import weather.way.ui.WeatherPresenterImpl
+import weather.way.ui.favourite.AbstractFavouritePresenter
+import weather.way.ui.favourite.FavouritePresenterImpl
 
 val appModule = module {
     single {
@@ -14,9 +22,30 @@ val appModule = module {
     factory<ApiRepository> {
         RepositoryImpl(get())
     }
-    factory<AbstractFragmentPresenter> {
-        MyPresenterImpl(
+    factory<DaoRepository> {
+        DaoRepositoryImpl(get())
+    }
+
+    single {
+        Room
+            .databaseBuilder(
+                androidContext(), AppDatabase::class.java, AppDatabase.DB_NAME
+            ).build()
+    }
+
+    single<WeatherDao> {
+        get<AppDatabase>().weatherDao()
+    }
+
+    factory<AbstractWeatherPresenter> {
+        WeatherPresenterImpl(
+            get(),
             get()
         )
     }
+    factory<AbstractFavouritePresenter> {
+        FavouritePresenterImpl(get())
+    }
+
+
 }

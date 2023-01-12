@@ -3,5 +3,6 @@
     <string name="feels_like">Feels like</string>
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
+    <string name="saved_cities">Saved cities</string>
 
 </resources>

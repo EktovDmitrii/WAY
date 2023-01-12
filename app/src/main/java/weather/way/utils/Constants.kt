@@ -11,5 +11,6 @@ object Constants {
     const val RAIN = "Rain"
     const val SNOW = "Snow"
     const val SUN = "Clear"
+    const val FRAGMENT_FAVOURITE_BINDING_NULL = "FragmentFavouriteBinding is null"
 
 }

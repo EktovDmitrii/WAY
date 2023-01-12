@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken
 import weather.way.data.common.dataBase.entities.WeatherDbModel
 
 
-class ListConvertor {
+class WeatherDbModelConvertor {
     @TypeConverter
     fun fromList(value: List<WeatherDbModel>?): String? {
         val gson = Gson()

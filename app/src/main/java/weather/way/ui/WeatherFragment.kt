@@ -8,8 +8,10 @@ import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import org.koin.android.ext.android.get
+import weather.way.R
 import weather.way.databinding.FragmentWeatherBinding
 import weather.way.domain.model.CommonInfo
+import weather.way.ui.favourite.FavouriteFragment
 import weather.way.utils.Constants
 import weather.way.utils.Constants.CELSIUS
 import weather.way.utils.Constants.EMPTY_STRING
@@ -18,15 +20,15 @@ import weather.way.utils.Constants.LON
 import weather.way.utils.convertFahrenheitToCelsius
 import weather.way.utils.convertTimestampToTime
 
-class WeatherFragment : MvpAppCompatFragment(), MyView {
+class WeatherFragment : MvpAppCompatFragment(), WeatherView {
 
     private var adapter: WeatherPerHourAdapter? = null
 
     @InjectPresenter
-    lateinit var presenter: AbstractFragmentPresenter
+    lateinit var presenter: AbstractWeatherPresenter
 
     @ProvidePresenter
-    fun provide(): AbstractFragmentPresenter = get()
+    fun provide(): AbstractWeatherPresenter = get()
 
     private var _binding: FragmentWeatherBinding? = null
     val binding: FragmentWeatherBinding
@@ -64,6 +66,10 @@ class WeatherFragment : MvpAppCompatFragment(), MyView {
         return requireArguments().getString(LAT, EMPTY_STRING)
     }
 
+    override fun addCityToFavouriteList(commonInfo: CommonInfo) {
+        binding.btnAddToFavourite.visibility = View.GONE
+    }
+
     override fun showHourlyForecast(commonInfo: CommonInfo) {
         binding.tvCityName.text = commonInfo.city.name
         binding.tvSunriseValue.text = convertTimestampToTime(commonInfo.city.sunrise)
@@ -79,6 +85,19 @@ class WeatherFragment : MvpAppCompatFragment(), MyView {
         binding.btnSettings.setOnClickListener {
             presenter.getForecastByName(binding.etCityNameSearch.text.toString())
         }
+        binding.btnAddToFavourite.setOnClickListener {
+            presenter.addToFavourite(commonInfo)
+        }
+        binding.tvCityName.setOnClickListener {
+            launchFavouriteFragment(commonInfo)
+        }
+    }
+
+    private fun launchFavouriteFragment(commonInfo: CommonInfo) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, FavouriteFragment.newInstance(commonInfo))
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {

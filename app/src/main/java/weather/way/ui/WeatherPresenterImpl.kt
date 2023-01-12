@@ -6,18 +6,22 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.InjectViewState
 import weather.way.domain.ApiRepository
+import weather.way.domain.DaoRepository
+import weather.way.domain.model.CommonInfo
+import weather.way.domain.useCases.AddCityToFavouriteUseCase
 import weather.way.domain.useCases.GetForecastByNameUseCase
 import weather.way.domain.useCases.GetHourlyForecastUseCase
 
 @InjectViewState
-class MyPresenterImpl(
-    private val repository: ApiRepository,
-) : AbstractFragmentPresenter() {
+class WeatherPresenterImpl(
+    private val apiRepository: ApiRepository,
+    private val daoRepository: DaoRepository
+) : AbstractWeatherPresenter() {
 
-    private val getHourlyForecastUseCase = GetHourlyForecastUseCase(repository)
-    private val getForecastByNameUseCase = GetForecastByNameUseCase(repository)
-
-    val compositeDisposable = CompositeDisposable()
+    private val getHourlyForecastUseCase = GetHourlyForecastUseCase(apiRepository)
+    private val getForecastByNameUseCase = GetForecastByNameUseCase(apiRepository)
+    private val addCityToFavouriteUseCase = AddCityToFavouriteUseCase(daoRepository)
+    private val compositeDisposable = CompositeDisposable()
 
     override fun getHourlyForecast(lon: String, lat: String) {
         val disposable = getHourlyForecastUseCase.getHourlyForecast(lon, lat)
@@ -42,7 +46,18 @@ class MyPresenterImpl(
             }, {
                 Log.d("WEATHER_CHECK", "No data found")
             })
-        compositeDisposable.add(disposable)    }
+        compositeDisposable.add(disposable)
+    }
+
+    override fun addToFavourite(commonInfo: CommonInfo) {
+        val disposable = addCityToFavouriteUseCase.addCityToFavourite(commonInfo)
+            .subscribeOn(Schedulers.io())
+            .observeOn((AndroidSchedulers.mainThread()))
+            .subscribe {
+                viewState.addCityToFavouriteList(commonInfo)
+            }
+        compositeDisposable.add(disposable)
+    }
 
     override fun onDestroy() {
         compositeDisposable.dispose()

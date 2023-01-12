@@ -3,7 +3,7 @@ package weather.way.data.common.dataBase.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import weather.way.data.common.dataBase.ListConvertor
+import weather.way.data.common.dataBase.WeatherDbModelConvertor
 import weather.way.domain.model.*
 
 @Entity(tableName = "favourite_forecast")
@@ -19,7 +19,7 @@ data class ForecastDbModel(
     val grnd_level: Int,
     val humidity: Int,
     val temp_kf: Double,
-    @TypeConverters(ListConvertor::class)
+    @TypeConverters(WeatherDbModelConvertor::class)
     val weather: List<WeatherDbModel>,
     val speed: Double,
     val deg: Int,
