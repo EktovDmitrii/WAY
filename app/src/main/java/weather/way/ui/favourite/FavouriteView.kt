@@ -8,5 +8,5 @@ import weather.way.domain.model.CommonInfo
 @StateStrategyType(SingleStateStrategy::class)
 interface FavouriteView : MvpView {
 
-    fun showFavouriteList(commonInfo: CommonInfo)
+    fun showFavouriteList(commonInfo: List<CommonInfo>)
 }

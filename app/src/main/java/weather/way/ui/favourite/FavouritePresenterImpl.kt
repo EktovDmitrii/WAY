@@ -16,12 +16,12 @@ class FavouritePresenterImpl(
     private val getFavouriteUseCase = GetFavouriteListUseCase(repository)
     private val compositeDisposable = CompositeDisposable()
 
-    override fun getWeatherList(commonInfo: CommonInfo) {
+    override fun getWeatherList() {
         val disposable = getFavouriteUseCase.getFavouriteList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                viewState.showFavouriteList(commonInfo)
+                viewState.showFavouriteList(it)
             }, {
                 throw RuntimeException("no value")
             })

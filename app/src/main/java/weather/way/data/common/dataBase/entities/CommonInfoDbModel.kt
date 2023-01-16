@@ -8,12 +8,12 @@ import weather.way.domain.model.*
 
 @Entity(tableName = "common_info")
 data class CommonInfoDbModel(
-    @PrimaryKey
     val cod: Int,
     val message: Int,
     val cnt: Int,
     @TypeConverters(ForecastDbModelConvertor::class)
     val list: List<ForecastDbModel>,
+    @PrimaryKey
     val id: Int,
     val name: String,
     val lon: Double,

@@ -103,6 +103,7 @@
             tools:listitem="@layout/weather_per_hour_card" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sun_info_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -156,6 +157,14 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <Button
+            android:id="@+id/btn_go_to_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/sun_info_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Go to saved weather"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

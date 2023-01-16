@@ -55,6 +55,7 @@ class WeatherPresenterImpl(
             .observeOn((AndroidSchedulers.mainThread()))
             .subscribe {
                 viewState.addCityToFavouriteList(commonInfo)
+                Log.d("ISINFAVOURITE", "${commonInfo.city.name}")
             }
         compositeDisposable.add(disposable)
     }

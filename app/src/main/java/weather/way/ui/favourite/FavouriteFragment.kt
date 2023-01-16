@@ -42,7 +42,7 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        Log.d("Cheremsha", "${parseArgs().toString()}")
-        presenter.getWeatherList(parseArgs())
+        presenter.getWeatherList()
 
     }
 
@@ -52,14 +52,14 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
         adapter = null
     }
 
-    private fun parseArgs(): CommonInfo {
-        return requireArguments().getSerializable(CITY_NAME) as CommonInfo
-    }
+//    private fun parseArgs(): CommonInfo {
+//        return requireArguments().getSerializable(CITY_NAME) as CommonInfo
+//    }
 
-    override fun showFavouriteList(commonInfo: CommonInfo) {
+    override fun showFavouriteList(commonInfo: List<CommonInfo>) {
         setAdapter()
-        adapter?.myData = listOf(commonInfo)
-        adapter?.submitList(listOf(commonInfo))
+        adapter?.myData = commonInfo
+        adapter?.submitList(commonInfo)
     }
 
     private fun setAdapter() {
@@ -69,12 +69,8 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
 
     companion object {
 
-        fun newInstance(commonInfo: CommonInfo) =
-            FavouriteFragment().apply {
-                arguments = Bundle().apply {
-                    putSerializable(CITY_NAME, commonInfo)
-                }
-            }
+        fun newInstance() =
+            FavouriteFragment()
 
     }
 }

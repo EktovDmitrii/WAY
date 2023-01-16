@@ -4,7 +4,7 @@ import weather.way.domain.model.CommonInfo
 
 interface FavouritePresenter {
 
-    fun getWeatherList(commonInfo: CommonInfo)
+    fun getWeatherList()
 
     fun onDestroy()
 }

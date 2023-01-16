@@ -67,7 +67,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
     }
 
     override fun addCityToFavouriteList(commonInfo: CommonInfo) {
-        binding.btnAddToFavourite.visibility = View.GONE
+        binding.btnAddToFavourite.visibility = View.VISIBLE
     }
 
     override fun showHourlyForecast(commonInfo: CommonInfo) {
@@ -88,14 +88,14 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         binding.btnAddToFavourite.setOnClickListener {
             presenter.addToFavourite(commonInfo)
         }
-        binding.tvCityName.setOnClickListener {
-            launchFavouriteFragment(commonInfo)
+        binding.btnGoToFav.setOnClickListener {
+            launchFavouriteFragment()
         }
     }
 
-    private fun launchFavouriteFragment(commonInfo: CommonInfo) {
+    private fun launchFavouriteFragment() {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, FavouriteFragment.newInstance(commonInfo))
+            .replace(R.id.fragment_container_view, FavouriteFragment.newInstance())
             .addToBackStack(null)
             .commit()
     }
