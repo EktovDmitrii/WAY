@@ -14,6 +14,7 @@ import weather.way.domain.model.CommonInfo
 import weather.way.ui.favourite.FavouriteFragment
 import weather.way.utils.Constants
 import weather.way.utils.Constants.CELSIUS
+import weather.way.utils.Constants.CITY_NAME
 import weather.way.utils.Constants.EMPTY_STRING
 import weather.way.utils.Constants.LAT
 import weather.way.utils.Constants.LON
@@ -44,6 +45,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.getForecastByName(getCityName())
         presenter.getHourlyForecast(getCityLon(), getCityLat())
     }
 
@@ -66,6 +68,10 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         return requireArguments().getString(LAT, EMPTY_STRING)
     }
 
+    private fun getCityName(): String {
+        return requireArguments().getString(CITY_NAME, EMPTY_STRING)
+    }
+
     override fun addCityToFavouriteList(commonInfo: CommonInfo) {
         binding.btnAddToFavourite.visibility = View.VISIBLE
     }
@@ -82,14 +88,14 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         setAdapter()
         adapter?.myData = commonInfo.list
         adapter?.submitList(commonInfo.list)
-        binding.btnSettings.setOnClickListener {
-            presenter.getForecastByName(binding.etCityNameSearch.text.toString())
-        }
         binding.btnAddToFavourite.setOnClickListener {
             presenter.addToFavourite(commonInfo)
         }
         binding.btnGoToFav.setOnClickListener {
             launchFavouriteFragment()
+        }
+        binding.tvCityName.setOnClickListener {
+            requireActivity().onBackPressed()
         }
     }
 
@@ -107,6 +113,13 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
                     putString(LON, lon)
                 }.apply {
                     putString(LAT, lat)
+                }
+            }
+
+        fun newInstance2(cityName: String) =
+            WeatherFragment().apply {
+                arguments = Bundle().apply {
+                    putString(CITY_NAME, cityName)
                 }
             }
     }
