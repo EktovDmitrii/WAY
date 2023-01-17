@@ -6,19 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import org.koin.android.ext.android.get
+import weather.way.R
 import weather.way.databinding.FragmentFavouriteBinding
 import weather.way.domain.model.CommonInfo
+import weather.way.ui.weather.WeatherFragment
 import weather.way.utils.Constants
 import weather.way.utils.Constants.CITY_NAME
 
 class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
 
 
-    private var adapter: FavouriteAdapter? = null
+    private lateinit var adapter: FavouriteAdapter
 
     @InjectPresenter
     lateinit var presenter: AbstractFavouritePresenter
@@ -41,7 +45,6 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        Log.d("Cheremsha", "${parseArgs().toString()}")
         presenter.getWeatherList()
 
     }
@@ -49,22 +52,56 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        adapter = null
     }
-
-//    private fun parseArgs(): CommonInfo {
-//        return requireArguments().getSerializable(CITY_NAME) as CommonInfo
-//    }
 
     override fun showFavouriteList(commonInfo: List<CommonInfo>) {
         setAdapter()
-        adapter?.myData = commonInfo
-        adapter?.submitList(commonInfo)
+        adapter.myData = commonInfo
+        adapter.submitList(commonInfo)
+    }
+
+    override fun deleteCity(commonInfo: CommonInfo) {
     }
 
     private fun setAdapter() {
-        adapter = FavouriteAdapter()
+        adapter = FavouriteAdapter(object : FavouriteAdapter.OnCityClickListener {
+            override fun onCityClick(commonInfo: CommonInfo) {
+                launchWeatherFragmentByName(commonInfo.city.name)
+            }
+        })
         binding.rvFavouriteCities.adapter = adapter
+        setupSwipeListener(binding.rvFavouriteCities)
+    }
+
+    private fun setupSwipeListener(rvFavouriteMovie: RecyclerView) {
+        val callback = object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val item = adapter.currentList[viewHolder.adapterPosition]
+                presenter.deleteCity(item)
+                item.isInFavourite = false
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(rvFavouriteMovie)
+    }
+
+    private fun launchWeatherFragmentByName(cityName: String) {
+        Log.d("start_Fragment", "Fragment launched")
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, WeatherFragment.newInstance2(cityName))
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {

@@ -6,13 +6,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
     android:orientation="horizontal"
-    android:background="@color/deepSkyBlue">
+    android:background="@color/shadowGrey">
 
     <TextView
         android:id="@+id/tv_city_name_in_fav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
+        android:padding="3dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="25sp"
@@ -22,10 +23,21 @@
         android:id="@+id/tv_city_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="3dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_weather_icon"
         android:textColor="@color/white"
         android:textSize="25sp"
         tools:text="25'C" />
+
+    <ImageView
+        android:id="@+id/iv_weather_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="3dp"
+        android:src="@drawable/ic_launcher_foreground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

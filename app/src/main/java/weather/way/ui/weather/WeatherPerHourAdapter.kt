@@ -1,4 +1,4 @@
-package weather.way.ui
+package weather.way.ui.weather
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

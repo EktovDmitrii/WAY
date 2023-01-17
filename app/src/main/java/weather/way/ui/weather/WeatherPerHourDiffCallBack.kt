@@ -1,4 +1,4 @@
-package weather.way.ui
+package weather.way.ui.weather
 
 import androidx.recyclerview.widget.DiffUtil
 import weather.way.domain.model.HourlyForecast

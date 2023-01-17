@@ -18,7 +18,7 @@ import moxy.presenter.ProvidePresenter
 import org.koin.android.ext.android.get
 import weather.way.R
 import weather.way.databinding.FragmentStartBinding
-import weather.way.ui.WeatherFragment
+import weather.way.ui.weather.WeatherFragment
 import weather.way.utils.Constants.FRAGMENT_WEATHER_BINDING_NULL
 import weather.way.utils.GeoLocationManager
 

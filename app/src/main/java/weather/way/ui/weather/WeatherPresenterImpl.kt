@@ -1,4 +1,4 @@
-package weather.way.ui
+package weather.way.ui.weather
 
 import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -11,6 +11,7 @@ import weather.way.domain.model.CommonInfo
 import weather.way.domain.useCases.AddCityToFavouriteUseCase
 import weather.way.domain.useCases.GetForecastByNameUseCase
 import weather.way.domain.useCases.GetHourlyForecastUseCase
+import weather.way.ui.weather.AbstractWeatherPresenter
 
 @InjectViewState
 class WeatherPresenterImpl(

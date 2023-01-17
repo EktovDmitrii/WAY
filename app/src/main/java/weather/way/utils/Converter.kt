@@ -15,7 +15,7 @@ fun convertTimestampToTime(timestamp: Int?): String {
     } else {
         TODO("VERSION.SDK_INT < N")
     }
-    sdf.timeZone = TimeZone.getDefault()
+    sdf.timeZone = TimeZone.getTimeZone("GMT+03")
     return sdf.format(stamp)
 }
 

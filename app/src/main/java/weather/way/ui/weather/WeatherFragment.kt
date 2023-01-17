@@ -1,4 +1,4 @@
-package weather.way.ui
+package weather.way.ui.weather
 
 import android.os.Bundle
 import android.util.Log
@@ -96,9 +96,6 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         adapter?.submitList(commonInfo.list)
         binding.btnGoToFav.setOnClickListener {
             launchFavouriteFragment()
-        }
-        binding.tvCityName.setOnClickListener {
-            requireActivity().onBackPressed()
         }
     }
 

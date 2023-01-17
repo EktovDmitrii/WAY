@@ -6,5 +6,7 @@ interface FavouritePresenter {
 
     fun getWeatherList()
 
+    fun deleteCity(commonInfo: CommonInfo)
+
     fun onDestroy()
 }

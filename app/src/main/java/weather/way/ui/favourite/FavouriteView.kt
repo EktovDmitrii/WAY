@@ -9,4 +9,6 @@ import weather.way.domain.model.CommonInfo
 interface FavouriteView : MvpView {
 
     fun showFavouriteList(commonInfo: List<CommonInfo>)
+
+    fun deleteCity(commonInfo: CommonInfo)
 }

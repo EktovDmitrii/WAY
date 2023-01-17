@@ -9,18 +9,7 @@ import weather.way.domain.model.Weather
 
 interface DaoRepository {
 
-//    fun addCity(city: City): Completable
-//
-//    fun addWeather(weather: Weather): Completable
-//
-//    fun addForecast(hourlyForecast: HourlyForecast): Completable
-//
-//    fun getAllCities(): Single<List<City>>
-//
-//    fun getAllWeather(): Single<List<Weather>>
-//
-//    fun getAllForecast(): Single<List<HourlyForecast>>
-
+    fun deleteCity(commonInfo: CommonInfo): Completable
 
     fun addCity(commonInfo: CommonInfo): Completable
 

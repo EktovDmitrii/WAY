@@ -8,13 +8,15 @@ import androidx.recyclerview.widget.ListAdapter
 import weather.way.R
 import weather.way.domain.model.CommonInfo
 
-class FavouriteAdapter:ListAdapter<CommonInfo, FavouriteViewHolder>(FavouriteDiffCallBack) {
+class FavouriteAdapter(
+    val listener: OnCityClickListener
+) : ListAdapter<CommonInfo, FavouriteViewHolder>(FavouriteDiffCallBack) {
 
     var myData: List<CommonInfo> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteViewHolder {
-    val view = LayoutInflater.from(parent.context)
-        .inflate(R.layout.favourite_small_card, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.favourite_small_card, parent, false)
         return FavouriteViewHolder(view)
     }
 
@@ -22,9 +24,16 @@ class FavouriteAdapter:ListAdapter<CommonInfo, FavouriteViewHolder>(FavouriteDif
     override fun onBindViewHolder(holder: FavouriteViewHolder, position: Int) {
         val weather = myData[position]
         holder.bind(weather)
+        holder.itemView.setOnClickListener {
+            listener.onCityClick(weather)
+        }
     }
 
     override fun getItemCount(): Int {
         return myData.size
+    }
+
+    interface OnCityClickListener {
+        fun onCityClick(commonInfo: CommonInfo)
     }
 }

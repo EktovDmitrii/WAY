@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="deepSkyBlue">#00BFFF</color>
     <color name="silver">#C0C0C0</color>
+    <color name="shadowGrey">#44AAAAAA</color>
 </resources>

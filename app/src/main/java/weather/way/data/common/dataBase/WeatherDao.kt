@@ -10,27 +10,12 @@ import weather.way.data.common.dataBase.entities.CommonInfoDbModel
 
 @Dao
 interface WeatherDao {
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertCity(cityDbModel: CityDbModel): Completable
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertWeather(weatherDbModel: WeatherDbModel): Completable
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertAllWeatherInfo(forecastDbModel: ForecastDbModel): Completable
+
+    @Query("DELETE FROM common_info WHERE id=:cityName")
+    fun deleteCity(cityName: String): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllWeatherInfo(commonInfoDbModel: CommonInfoDbModel): Completable
-//
-//    @Query("SELECT * FROM favourite_city")
-//    fun getAllCities(): Single<List<CityDbModel>>
-//
-//    @Query("SELECT * FROM favourite_weather")
-//    fun getAllWeather(): Single<List<WeatherDbModel>>
-//
-//    @Query("SELECT * FROM favourite_forecast")
-//    fun getAllForecast(): Single<List<ForecastDbModel>>
 
     @Query("SELECT * FROM common_info")
     fun getAllWeatherList(): Single<List<CommonInfoDbModel>>

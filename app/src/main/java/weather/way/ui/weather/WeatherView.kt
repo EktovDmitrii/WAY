@@ -1,4 +1,4 @@
-package weather.way.ui
+package weather.way.ui.weather
 
 import moxy.MvpView
 import moxy.viewstate.strategy.SingleStateStrategy
