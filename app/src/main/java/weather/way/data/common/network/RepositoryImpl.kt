@@ -11,12 +11,15 @@ class RepositoryImpl(
 ) : ApiRepository {
 
     override fun getHourlyForecastByName(cityName: String): Single<CommonInfo> {
-        return apiService.getHourlyForecastByName(cityName).map { it ->
+        val weatherList = dao.getAllWeatherList()
+        val forecast = apiService.getHourlyForecastByName(cityName)
+        return Single.zip(weatherList, forecast) { daoResult, responseResult ->
+            val isInFavorite = daoResult.find { it.name == cityName } != null
             CommonInfo(
-                cod = it.cod,
-                message = it.message,
-                cnt = it.cnt,
-                list = it.list.map { hourlyForecastDto ->
+                cod = responseResult.cod,
+                message = responseResult.message,
+                cnt = responseResult.cnt,
+                list = responseResult.list.map { hourlyForecastDto ->
                     HourlyForecast(
                         dt = hourlyForecastDto.dt,
                         main = MainWeather(
@@ -49,19 +52,19 @@ class RepositoryImpl(
                     )
                 },
                 city = City(
-                    id = it.city.id,
-                    name = it.city.name,
+                    id = responseResult.city.id,
+                    name = responseResult.city.name,
                     coord = Coord(
-                        lon = it.city.coord.lon,
-                        lat = it.city.coord.lat
+                        lon = responseResult.city.coord.lon,
+                        lat = responseResult.city.coord.lat
                     ),
-                    country = it.city.country,
-                    population = it.city.population,
-                    timezone = it.city.timezone,
-                    sunrise = it.city.sunrise,
-                    sunset = it.city.sunset
+                    country = responseResult.city.country,
+                    population = responseResult.city.population,
+                    timezone = responseResult.city.timezone,
+                    sunrise = responseResult.city.sunrise,
+                    sunset = responseResult.city.sunset
                 ),
-                isInFavourite = false
+                isInFavourite = isInFavorite
             )
         }
     }

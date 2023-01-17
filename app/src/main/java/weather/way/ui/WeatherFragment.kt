@@ -49,7 +49,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        presenter.getForecastByName(getCityName())
+        presenter.getForecastByName(getCityName())
         presenter.getHourlyForecast(getCityLon(), getCityLat())
     }
 
