@@ -1,10 +1,14 @@
 package weather.way.data.common.network
 
 import io.reactivex.rxjava3.core.Single
+import weather.way.data.common.dataBase.WeatherDao
 import weather.way.domain.ApiRepository
 import weather.way.domain.model.*
 
-class RepositoryImpl(private val apiService: ApiService) : ApiRepository {
+class RepositoryImpl(
+    private val apiService: ApiService,
+    private val dao: WeatherDao
+) : ApiRepository {
 
     override fun getHourlyForecastByName(cityName: String): Single<CommonInfo> {
         return apiService.getHourlyForecastByName(cityName).map { it ->
@@ -56,18 +60,22 @@ class RepositoryImpl(private val apiService: ApiService) : ApiRepository {
                     timezone = it.city.timezone,
                     sunrise = it.city.sunrise,
                     sunset = it.city.sunset
-                )
+                ),
+                isInFavourite = false
             )
         }
     }
 
     override fun getHourlyForecastByGeo(lon: String, lat: String): Single<CommonInfo> {
-        return apiService.getHourlyForecastByGeo(lon, lat).map { it ->
+        val weatherList = dao.getAllWeatherList()
+        val forecast = apiService.getHourlyForecastByGeo(lon, lat)
+        return Single.zip(weatherList, forecast) { daoResult, responseResult ->
+            val isInFavourite = daoResult.find { it.lon.toString() == lon } != null
             CommonInfo(
-                cod = it.cod,
-                message = it.message,
-                cnt = it.cnt,
-                list = it.list.map { hourlyForecastDto ->
+                cod = responseResult.cod,
+                message = responseResult.message,
+                cnt = responseResult.cnt,
+                list = responseResult.list.map { hourlyForecastDto ->
                     HourlyForecast(
                         dt = hourlyForecastDto.dt,
                         main = MainWeather(
@@ -100,18 +108,19 @@ class RepositoryImpl(private val apiService: ApiService) : ApiRepository {
                     )
                 },
                 city = City(
-                    id = it.city.id,
-                    name = it.city.name,
+                    id = responseResult.city.id,
+                    name = responseResult.city.name,
                     coord = Coord(
-                        lon = it.city.coord.lon,
-                        lat = it.city.coord.lat
+                        lon = responseResult.city.coord.lon,
+                        lat = responseResult.city.coord.lat
                     ),
-                    country = it.city.country,
-                    population = it.city.population,
-                    timezone = it.city.timezone,
-                    sunrise = it.city.sunrise,
-                    sunset = it.city.sunset
-                )
+                    country = responseResult.city.country,
+                    population = responseResult.city.population,
+                    timezone = responseResult.city.timezone,
+                    sunrise = responseResult.city.sunrise,
+                    sunset = responseResult.city.sunset
+                ),
+                isInFavourite = isInFavourite
             )
         }
     }

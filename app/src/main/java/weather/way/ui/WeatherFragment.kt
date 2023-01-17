@@ -1,9 +1,12 @@
 package weather.way.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.bumptech.glide.Glide
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -43,9 +46,10 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.getForecastByName(getCityName())
+//        presenter.getForecastByName(getCityName())
         presenter.getHourlyForecast(getCityLon(), getCityLat())
     }
 
@@ -77,6 +81,8 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
     }
 
     override fun showHourlyForecast(commonInfo: CommonInfo) {
+        setFavouriteClickListener(commonInfo)
+        setFavouriteButton(commonInfo)
         binding.tvCityName.text = commonInfo.city.name
         binding.tvSunriseValue.text = convertTimestampToTime(commonInfo.city.sunrise)
         binding.tvSunsetValue.text = convertTimestampToTime(commonInfo.city.sunset)
@@ -88,14 +94,35 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         setAdapter()
         adapter?.myData = commonInfo.list
         adapter?.submitList(commonInfo.list)
-        binding.btnAddToFavourite.setOnClickListener {
-            presenter.addToFavourite(commonInfo)
-        }
         binding.btnGoToFav.setOnClickListener {
             launchFavouriteFragment()
         }
         binding.tvCityName.setOnClickListener {
             requireActivity().onBackPressed()
+        }
+    }
+
+    private fun setFavouriteButton(commonInfo: CommonInfo) {
+        if (commonInfo.isInFavourite) {
+            Glide.with(this).load(R.drawable.ic_in_favourite)
+                .into(binding.btnAddToFavourite)
+        }
+    }
+
+    private fun setFavouriteClickListener(commonInfo: CommonInfo) {
+        Log.d("IS_IN_FAVOURITE", "${commonInfo.isInFavourite}")
+        binding.btnAddToFavourite.setOnClickListener {
+            if (!commonInfo.isInFavourite) {
+                presenter.addToFavourite(commonInfo)
+                Glide.with(this).load(R.drawable.ic_in_favourite)
+                    .into(binding.btnAddToFavourite)
+//                commonInfo.isInFavourite = true
+            } else {
+                Toast.makeText(requireContext(), "Already added", Toast.LENGTH_SHORT).show()
+            }
+            commonInfo.isInFavourite = true
+            Log.d("IS_IN_FAVOURITE", "after change: ${commonInfo.isInFavourite}")
+
         }
     }
 

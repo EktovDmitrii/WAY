@@ -11,7 +11,8 @@ data class CommonInfo(
     val message: Int,
     val cnt: Int,
     val list: List<HourlyForecast>,
-    val city: City
+    val city: City,
+    var isInFavourite: Boolean
 ) : Serializable
 
 fun CommonInfo.toDbEntity(): CommonInfoDbModel {

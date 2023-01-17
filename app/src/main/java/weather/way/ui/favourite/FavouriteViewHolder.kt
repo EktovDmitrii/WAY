@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import weather.way.databinding.FavouriteSmallCardBinding
 import weather.way.domain.model.CommonInfo
+import weather.way.utils.Constants.CELSIUS
 import weather.way.utils.convertFahrenheitToCelsius
 
 class FavouriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -15,7 +16,7 @@ class FavouriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     @RequiresApi(Build.VERSION_CODES.N)
     fun bind(commonInfo: CommonInfo) {
         binding.tvCityTemp.text =
-            convertFahrenheitToCelsius(commonInfo.list[1].main.temp).toString()
+            convertFahrenheitToCelsius(commonInfo.list[1].main.temp).toString() + CELSIUS
         binding.tvCityNameInFav.text = commonInfo.city.name
     }
 }

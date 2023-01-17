@@ -22,7 +22,10 @@ val appModule = module {
         ApiFactory.apiService
     }
     factory<ApiRepository> {
-        RepositoryImpl(get())
+        RepositoryImpl(
+            get(),
+            get()
+        )
     }
     factory<DaoRepository> {
         DaoRepositoryImpl(get())
