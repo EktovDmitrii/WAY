@@ -46,6 +46,7 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.getWeatherList()
+        setAdapter()
 
     }
 
@@ -55,7 +56,6 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
     }
 
     override fun showFavouriteList(commonInfo: List<CommonInfo>) {
-        setAdapter()
         adapter.myData = commonInfo
         adapter.submitList(commonInfo)
     }
@@ -74,30 +74,6 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
             }
         )
         binding.rvFavouriteCities.adapter = adapter
-//        setupSwipeListener(binding.rvFavouriteCities)
-    }
-
-    private fun setupSwipeListener(rvFavouriteMovie: RecyclerView) {
-        val callback = object : ItemTouchHelper.SimpleCallback(
-            0,
-            ItemTouchHelper.LEFT
-        ) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val item = adapter.currentList[viewHolder.adapterPosition]
-                presenter.deleteCity(item)
-                item.isInFavourite = false
-            }
-        }
-        val itemTouchHelper = ItemTouchHelper(callback)
-        itemTouchHelper.attachToRecyclerView(rvFavouriteMovie)
     }
 
     private fun launchWeatherFragmentByName(cityName: String) {
