@@ -61,16 +61,20 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
     }
 
     override fun deleteCity(commonInfo: CommonInfo) {
+        commonInfo.isInFavourite = false
     }
 
     private fun setAdapter() {
-        adapter = FavouriteAdapter(object : FavouriteAdapter.OnCityClickListener {
-            override fun onCityClick(commonInfo: CommonInfo) {
-                launchWeatherFragmentByName(commonInfo.city.name)
+        adapter = FavouriteAdapter(
+            onItemClickListenerFavorites = {
+               launchWeatherFragmentByName(it.city.name)
+            },
+            onItemClickDelete = {
+                presenter.deleteCity(it)
             }
-        })
+        )
         binding.rvFavouriteCities.adapter = adapter
-        setupSwipeListener(binding.rvFavouriteCities)
+//        setupSwipeListener(binding.rvFavouriteCities)
     }
 
     private fun setupSwipeListener(rvFavouriteMovie: RecyclerView) {

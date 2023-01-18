@@ -36,6 +36,7 @@ class FavouritePresenterImpl(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 viewState.deleteCity(commonInfo)
+                getWeatherList()
             }
         compositeDisposable.add(disposable)
     }

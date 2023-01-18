@@ -9,7 +9,8 @@ import weather.way.R
 import weather.way.domain.model.CommonInfo
 
 class FavouriteAdapter(
-    val listener: OnCityClickListener
+    private val onItemClickListenerFavorites: (CommonInfo) -> Unit,
+    private val onItemClickDelete: (CommonInfo) -> Unit,
 ) : ListAdapter<CommonInfo, FavouriteViewHolder>(FavouriteDiffCallBack) {
 
     var myData: List<CommonInfo> = listOf()
@@ -17,23 +18,28 @@ class FavouriteAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.favourite_small_card, parent, false)
-        return FavouriteViewHolder(view)
+        return FavouriteViewHolder(view, onItemClickListenerFavorites, onItemClickDelete)
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: FavouriteViewHolder, position: Int) {
         val weather = myData[position]
         holder.bind(weather)
-        holder.itemView.setOnClickListener {
-            listener.onCityClick(weather)
-        }
+//        holder.itemView.setOnClickListener {
+//            cityListener.onCityClick(weather)
+//            deleteListener.onDeleteClick(weather)
     }
+
 
     override fun getItemCount(): Int {
         return myData.size
     }
-
-    interface OnCityClickListener {
-        fun onCityClick(commonInfo: CommonInfo)
-    }
 }
+
+//    interface OnCityClickListener {
+//        fun onCityClick(commonInfo: CommonInfo)
+//    }
+
+//    interface OnDeleteClickListener {
+//        fun onDeleteClick(commonInfo: CommonInfo)
+//    }

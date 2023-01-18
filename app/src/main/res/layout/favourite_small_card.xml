@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zerobranch.layout.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/swipe_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
-    android:orientation="horizontal"
-    android:background="@color/shadowGrey">
+    app:draggedItem="@id/drag_item"
+    app:rightItem="@id/right_view">
+
+    <ImageView
+        android:id="@+id/right_view"
+        style="@style/DeleteImageViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/drag_item"
+        app:cardCornerRadius="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/shadowGrey">
 
     <TextView
         android:id="@+id/tv_city_name_in_fav"
@@ -40,4 +58,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</com.zerobranch.layout.SwipeLayout>

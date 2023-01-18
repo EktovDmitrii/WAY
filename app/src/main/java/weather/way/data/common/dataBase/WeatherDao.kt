@@ -11,8 +11,8 @@ import weather.way.data.common.dataBase.entities.CommonInfoDbModel
 @Dao
 interface WeatherDao {
 
-    @Query("DELETE FROM common_info WHERE id=:cityName")
-    fun deleteCity(cityName: String): Completable
+    @Query("DELETE FROM common_info WHERE id=:id")
+    fun deleteCity(id: Int): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllWeatherInfo(commonInfoDbModel: CommonInfoDbModel): Completable

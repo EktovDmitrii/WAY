@@ -22,6 +22,6 @@ class DaoRepositoryImpl(
     }
 
     override fun deleteCity(commonInfo: CommonInfo): Completable {
-       return weatherDao.deleteCity(commonInfo.city.name)
+       return weatherDao.deleteCity(commonInfo.city.id)
     }
 }
