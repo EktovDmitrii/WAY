@@ -68,7 +68,7 @@ private fun setRightImage(commonInfo: CommonInfo) {
             .into(binding.ivWeatherIcon)
     }
     if (commonInfo.list[0].weather[0].main == Constants.SNOW) {
-        Glide.with(itemView).load(R.drawable.ic_snow)
+        Glide.with(itemView).load(R.drawable.ic_snow_icon)
             .into(binding.ivWeatherIcon)
     }
     if (commonInfo.list[0].weather[0].main == Constants.SUN) {

@@ -39,7 +39,7 @@ class WeatherPerHourViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
                 .into(binding.ivWeather)
         }
         if (hourlyForecast.weather[0].main == SNOW) {
-            Glide.with(itemView).load(R.drawable.ic_snow)
+            Glide.with(itemView).load(R.drawable.ic_snow_icon)
                 .into(binding.ivWeather)
         }
         if (hourlyForecast.weather[0].main == SUN) {

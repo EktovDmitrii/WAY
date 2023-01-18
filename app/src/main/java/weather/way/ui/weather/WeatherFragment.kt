@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.github.matteobattilana.weather.PrecipType
+import kotlinx.android.synthetic.main.fragment_weather.*
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -81,8 +83,10 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
     }
 
     override fun showHourlyForecast(commonInfo: CommonInfo) {
+        setWeatherBackground(commonInfo)
         setFavouriteClickListener(commonInfo)
         setFavouriteButton(commonInfo)
+        setBackground(commonInfo)
         binding.tvCityName.text = commonInfo.city.name
         binding.tvSunriseValue.text = convertTimestampToTime(commonInfo.city.sunrise)
         binding.tvSunsetValue.text = convertTimestampToTime(commonInfo.city.sunset)
@@ -103,6 +107,33 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         if (commonInfo.isInFavourite) {
             Glide.with(this).load(R.drawable.ic_in_favourite)
                 .into(binding.btnAddToFavourite)
+        }
+    }
+
+    private fun setWeatherBackground(commonInfo: CommonInfo) {
+        if (commonInfo.list[0].weather[0].main == Constants.RAIN) {
+            weather_view.setWeatherData(PrecipType.RAIN)
+        }
+        if (commonInfo.list[0].weather[0].main == Constants.SNOW) {
+            weather_view.setWeatherData(PrecipType.SNOW)
+        }
+        if (commonInfo.list[0].weather[0].main == Constants.SUN) {
+            weather_view.setWeatherData(PrecipType.CLEAR)
+        }
+    }
+
+    private fun setBackground(commonInfo: CommonInfo) {
+        if (commonInfo.list[0].weather[0].main == Constants.RAIN) {
+            binding.scrollView.background = resources.getDrawable(R.mipmap.ic_rain_again_foreground)
+        }
+        if (commonInfo.list[0].weather[0].main == Constants.SNOW) {
+            binding.scrollView.background = resources.getDrawable(R.drawable.snow_again)
+        }
+        if (commonInfo.list[0].weather[0].main == Constants.SUN) {
+            binding.scrollView.background = resources.getDrawable(R.drawable.sunny)
+        }
+        if (commonInfo.list[0].weather[0].main == Constants.CLOUDS) {
+            binding.scrollView.background = resources.getDrawable(R.drawable.cloudy)
         }
     }
 
