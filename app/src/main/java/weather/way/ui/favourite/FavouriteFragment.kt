@@ -58,6 +58,12 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
     override fun showFavouriteList(commonInfo: List<CommonInfo>) {
         adapter.myData = commonInfo
         adapter.submitList(commonInfo)
+        setComponentsVisibility()
+    }
+
+    private fun setComponentsVisibility() {
+        binding.tvFavouriteTitle.visibility = View.VISIBLE
+        binding.favouriteProgressBar.visibility = View.GONE
     }
 
     override fun deleteCity(commonInfo: CommonInfo) {

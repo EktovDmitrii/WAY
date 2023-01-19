@@ -9,12 +9,20 @@
     tools:context=".ui.favourite.FavouriteFragment">
 
  <TextView
+     android:id="@+id/tv_favourite_title"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
      android:gravity="center"
+     android:visibility="invisible"
      android:textColor="@color/white"
      android:textSize="30sp"
      android:text="@string/saved_cities"/>
+
+    <ProgressBar
+        android:id="@+id/favourite_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_favourite_cities"

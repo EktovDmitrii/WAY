@@ -13,6 +13,15 @@
         android:layout_height="match_parent"
         >
 
+        <ProgressBar
+            android:id="@+id/weather_progress_bar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <com.github.matteobattilana.weather.WeatherView
             android:id="@+id/weather_view"
             android:layout_width="0dp"
@@ -27,6 +36,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
+            android:visibility="invisible"
             android:src="@drawable/ic_baseline_settings_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,6 +46,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
+            android:visibility="invisible"
             android:src="@drawable/ic_not_in_favourite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_settings" />
@@ -114,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
                 android:text="@string/sunrise"
+                android:visibility="invisible"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toStartOf="@id/tv_sunrise_value"
@@ -137,6 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
                 android:text="@string/sunset"
+                android:visibility="invisible"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toStartOf="@id/tv_sunset_value"
@@ -159,6 +172,7 @@
             android:id="@+id/btn_go_to_fav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             app:layout_constraintTop_toBottomOf="@id/sun_info_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

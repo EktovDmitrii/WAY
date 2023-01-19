@@ -53,6 +53,8 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         super.onViewCreated(view, savedInstanceState)
         presenter.getForecastByName(getCityName())
         presenter.getHourlyForecast(getCityLon(), getCityLat())
+
+
     }
 
     override fun onDestroyView() {
@@ -87,6 +89,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         setFavouriteClickListener(commonInfo)
         setFavouriteButton(commonInfo)
         setBackground(commonInfo)
+        setComponentsVisibility()
         binding.tvCityName.text = commonInfo.city.name
         binding.tvSunriseValue.text = convertTimestampToTime(commonInfo.city.sunrise)
         binding.tvSunsetValue.text = convertTimestampToTime(commonInfo.city.sunset)
@@ -101,6 +104,15 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         binding.btnGoToFav.setOnClickListener {
             launchFavouriteFragment()
         }
+    }
+
+    private fun setComponentsVisibility() {
+        binding.btnGoToFav.visibility = View.VISIBLE
+        binding.tvSunriseTitle.visibility = View.VISIBLE
+        binding.tvSunsetTitle.visibility = View.VISIBLE
+        binding.btnAddToFavourite.visibility = View.VISIBLE
+        binding.btnSettings.visibility = View.VISIBLE
+        binding.weatherProgressBar.visibility = View.GONE
     }
 
     private fun setFavouriteButton(commonInfo: CommonInfo) {
