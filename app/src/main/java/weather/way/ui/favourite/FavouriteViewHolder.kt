@@ -46,6 +46,7 @@ class FavouriteViewHolder(
                 }
 
                 override fun onClose() {
+                    binding.rightView.visibility = View.INVISIBLE
 
                 }
 
