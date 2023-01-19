@@ -8,4 +8,8 @@ import moxy.viewstate.strategy.StateStrategyType
 interface StartView : MvpView {
 
     fun clearSearchField()
+
+    fun startWeatherFragmentByName(cityName: String)
+
+    fun startWeatherFragmentByGeo(lon: String, lat: String)
 }

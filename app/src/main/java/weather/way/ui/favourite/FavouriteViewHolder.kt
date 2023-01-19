@@ -38,9 +38,9 @@ class FavouriteViewHolder(
         binding.swipeLayout.setOnActionsListener(
             object : SwipeLayout.SwipeActionsListener {
                 override fun onOpen(direction: Int, isContinuous: Boolean) {
+                    binding.rightView.visibility = View.VISIBLE
                     if (direction == SwipeLayout.LEFT && isContinuous) {
                         if (adapterPosition != RecyclerView.NO_POSITION) {
-
                         }
                     }
                 }

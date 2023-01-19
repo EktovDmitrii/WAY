@@ -28,7 +28,6 @@ class StartFragment : MvpAppCompatFragment(), StartView{
     private val LOCATION_PERMISSION_CODE = 1000
     private var lon: String = ""
     private var lat: String = ""
-    private val compositeDisposable = CompositeDisposable()
 
     private var _binding: FragmentStartBinding? = null
     val binding: FragmentStartBinding
@@ -51,16 +50,38 @@ class StartFragment : MvpAppCompatFragment(), StartView{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.btnStartSearch.setOnClickListener {
+            locationManager = GeoLocationManager(requireContext())
+            presenter.searchCityByName(binding.etCityNameSearch.text.toString())
+        }
+//        binding.btnFindByLocation.setOnClickListener {
+////            launchWeatherFragmentByGeo(lon, lat)
+//
+//            Log.d("MainActivityy", "$lat $lon")
+//
+//            locationManager = GeoLocationManager(requireContext())
+//            val permissionGranted = ActivityCompat.checkSelfPermission(
+//                requireContext(),
+//                android.Manifest.permission.ACCESS_FINE_LOCATION,
+//            ) == PackageManager.PERMISSION_GRANTED
+//
+//            if (permissionGranted) {
+//                locationManager.startLocationTracking(locationCallback)
+//                locationTrackingRequested = true
+//            } else {
+//                requestPermission()
+//            }
+//        }
     }
 
     override fun onResume() {
         super.onResume()
-        binding.btnStartSearch.setOnClickListener {
-            locationManager = GeoLocationManager(requireContext())
-            presenter.searchCityByName(binding.etCityNameSearch.text.toString())
-            launchWeatherFragmentByName(binding.etCityNameSearch.text.toString())
-        }
+
         binding.btnFindByLocation.setOnClickListener {
+//            launchWeatherFragmentByGeo(lon, lat)
+
+            Log.d("MainActivityy", "$lat $lon")
+
             locationManager = GeoLocationManager(requireContext())
             val permissionGranted = ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -76,13 +97,28 @@ class StartFragment : MvpAppCompatFragment(), StartView{
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        locationManager.stopLocationTracking()
+//        requireActivity().supportFragmentManager.tran
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+
     }
 
     override fun clearSearchField() {
         binding.etCityNameSearch.text = null
+    }
+
+    override fun startWeatherFragmentByName(cityName: String) {
+        launchWeatherFragmentByName(cityName)
+    }
+
+    override fun startWeatherFragmentByGeo(lon: String, lat: String) {
+//        launchWeatherFragmentByGeo(lon, lat)
     }
 
     private val locationCallback = object : LocationCallback() {
@@ -91,11 +127,13 @@ class StartFragment : MvpAppCompatFragment(), StartView{
             for (location in p0.locations) {
                 lat = location.latitude.toString()
                 lon = location.longitude.toString()
-                Log.d("MainActivityy", "$lat $lon")
-                presenter.searchCityByGeo(lon, lat)
-                launchWeatherFragmentByGeo(lon, lat)
+//                Log.d("MainActivityy", "$lat $lon")
+//                launchWeatherFragmentByGeo(lon, lat)
                 locationManager.stopLocationTracking()
             }
+            presenter.searchCityByGeo(lon, lat)
+            launchWeatherFragmentByGeo(lon, lat)
+
         }
     }
 
@@ -131,22 +169,16 @@ class StartFragment : MvpAppCompatFragment(), StartView{
             ) {
                 locationManager.startLocationTracking(locationCallback)
             } else {
-                Log.d("MainActivityy", "Permission denied")
+                Log.d("MainActivity", "Permission denied")
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-//
-//    override fun onPause() {
-//        super.onPause()
-//        locationManager.stopLocationTracking()
-//    }
-//
 //    override fun onResume() {
 //        super.onResume()
 //        if (locationTrackingRequested) {
-//            locationManager.startLocationTracking(locationCallback)
+//            locationManager.stopLocationTracking()
 //        }
 //    }
 

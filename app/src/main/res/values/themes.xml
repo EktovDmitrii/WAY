@@ -16,7 +16,7 @@
 
     <style name="DeleteImageViewStyle">
         <item name="android:layout_gravity">end</item>
-        <item name="android:background">@color/deepSkyBlue</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingStart">24dp</item>
         <item name="android:paddingEnd">24dp</item>

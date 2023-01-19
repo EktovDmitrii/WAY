@@ -24,10 +24,9 @@ class StartPresenterImpl(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                viewState.startWeatherFragmentByName(it.city.name)
                 viewState.clearSearchField()
-                Log.d("WEATHER_CHECK", it.toString())
             }, {
-                Log.d("WEATHER_CHECK", "No data found")
             })
         compositeDisposable.add(disposable)
     }
@@ -37,6 +36,10 @@ class StartPresenterImpl(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                viewState.startWeatherFragmentByGeo(
+                    it.city.coord.lon.toString(),
+                    it.city.coord.lat.toString()
+                )
                 Log.d("WEATHER_CHECK", it.toString())
             }, {
                 Log.d("WEATHER_CHECK", "Ебаный сука нахуй нет данных")
