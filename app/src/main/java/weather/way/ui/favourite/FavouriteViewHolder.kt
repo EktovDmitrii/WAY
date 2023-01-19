@@ -61,19 +61,19 @@ class FavouriteViewHolder(
 
 private fun setRightImage(commonInfo: CommonInfo) {
     if (commonInfo.list[0].weather[0].main == Constants.CLOUDS) {
-        Glide.with(itemView).load(R.drawable.ic_clouds_icon)
+        Glide.with(itemView).load(R.drawable.ic_cloud_vector)
             .into(binding.ivWeatherIcon)
     }
     if (commonInfo.list[0].weather[0].main == Constants.RAIN) {
-        Glide.with(itemView).load(R.drawable.ic_rain_icon)
+        Glide.with(itemView).load(R.drawable.ic_rain_vector)
             .into(binding.ivWeatherIcon)
     }
     if (commonInfo.list[0].weather[0].main == Constants.SNOW) {
-        Glide.with(itemView).load(R.drawable.ic_snow_icon)
+        Glide.with(itemView).load(R.drawable.ic_snow_vector)
             .into(binding.ivWeatherIcon)
     }
     if (commonInfo.list[0].weather[0].main == Constants.SUN) {
-        Glide.with(itemView).load(R.drawable.ic_sun_icon)
+        Glide.with(itemView).load(R.drawable.ic_sun_vector)
             .into(binding.ivWeatherIcon)
     }
 }

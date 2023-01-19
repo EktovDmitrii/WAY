@@ -18,6 +18,7 @@ import moxy.presenter.ProvidePresenter
 import org.koin.android.ext.android.get
 import weather.way.R
 import weather.way.databinding.FragmentStartBinding
+import weather.way.ui.favourite.FavouriteFragment
 import weather.way.ui.weather.WeatherFragment
 import weather.way.utils.Constants.FRAGMENT_WEATHER_BINDING_NULL
 import weather.way.utils.GeoLocationManager
@@ -54,24 +55,10 @@ class StartFragment : MvpAppCompatFragment(), StartView{
             locationManager = GeoLocationManager(requireContext())
             presenter.searchCityByName(binding.etCityNameSearch.text.toString())
         }
-//        binding.btnFindByLocation.setOnClickListener {
-////            launchWeatherFragmentByGeo(lon, lat)
-//
-//            Log.d("MainActivityy", "$lat $lon")
-//
-//            locationManager = GeoLocationManager(requireContext())
-//            val permissionGranted = ActivityCompat.checkSelfPermission(
-//                requireContext(),
-//                android.Manifest.permission.ACCESS_FINE_LOCATION,
-//            ) == PackageManager.PERMISSION_GRANTED
-//
-//            if (permissionGranted) {
-//                locationManager.startLocationTracking(locationCallback)
-//                locationTrackingRequested = true
-//            } else {
-//                requestPermission()
-//            }
-//        }
+        binding.btnStartFavouriteFrag.setOnClickListener {
+            locationManager = GeoLocationManager(requireContext())
+            launchFavouriteFragment()
+        }
     }
 
     override fun onResume() {
@@ -186,6 +173,12 @@ class StartFragment : MvpAppCompatFragment(), StartView{
         Log.d("start_Fragment", "Fragment launched")
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, WeatherFragment.newInstance2(cityName))
+            .addToBackStack(null)
+            .commit()
+    }
+    private fun launchFavouriteFragment() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, FavouriteFragment.newInstance())
             .addToBackStack(null)
             .commit()
     }

@@ -31,19 +31,19 @@ class WeatherPerHourViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
 
     private fun setRightImage(hourlyForecast: HourlyForecast) {
         if (hourlyForecast.weather[0].main == CLOUDS) {
-            Glide.with(itemView).load(R.drawable.ic_clouds_icon)
+            Glide.with(itemView).load(R.drawable.ic_cloud_vector)
                 .into(binding.ivWeather)
         }
         if (hourlyForecast.weather[0].main == RAIN) {
-            Glide.with(itemView).load(R.drawable.ic_rain_icon)
+            Glide.with(itemView).load(R.drawable.ic_rain_vector)
                 .into(binding.ivWeather)
         }
         if (hourlyForecast.weather[0].main == SNOW) {
-            Glide.with(itemView).load(R.drawable.ic_snow_icon)
+            Glide.with(itemView).load(R.drawable.ic_snow_vector)
                 .into(binding.ivWeather)
         }
         if (hourlyForecast.weather[0].main == SUN) {
-            Glide.with(itemView).load(R.drawable.ic_sun_icon)
+            Glide.with(itemView).load(R.drawable.ic_sun_vector)
                 .into(binding.ivWeather)
         }
     }

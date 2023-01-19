@@ -78,4 +78,14 @@
         app:layout_constraintStart_toStartOf="parent"
         android:text="@string/find_me"/>
 
+    <Button
+        android:id="@+id/btn_start_favourite_frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_find_by_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/go_to_my_favourite"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
