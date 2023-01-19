@@ -32,10 +32,10 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_favourite_cities"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_city_vector"
+            android:src="@drawable/ic_baseline_settings_24"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -110,13 +110,6 @@
             app:layout_constraintTop_toBottomOf="@id/tv_fells_like"
             tools:listitem="@layout/weather_per_hour_card" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_weather_per_hour"/>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sun_info_layout"
             android:layout_width="match_parent"
@@ -183,6 +176,15 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <Button
+            android:id="@+id/btn_go_to_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go to saved weather"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sun_info_layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

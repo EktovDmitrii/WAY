@@ -1,7 +1,8 @@
-package weather.way.ui.weather
+package weather.way.ui
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,18 +16,21 @@ import moxy.presenter.ProvidePresenter
 import org.koin.android.ext.android.get
 import weather.way.R
 import weather.way.databinding.FragmentWeatherBinding
+import weather.way.databinding.FragmentWeatherNameBinding
 import weather.way.domain.model.CommonInfo
 import weather.way.ui.favourite.FavouriteFragment
+import weather.way.ui.weather.AbstractWeatherPresenter
+import weather.way.ui.weather.WeatherPerHourAdapter
+import weather.way.ui.weather.WeatherView
 import weather.way.utils.Constants
-import weather.way.utils.Constants.CELSIUS
-import weather.way.utils.Constants.CITY_NAME
-import weather.way.utils.Constants.EMPTY_STRING
-import weather.way.utils.Constants.LAT
-import weather.way.utils.Constants.LON
 import weather.way.utils.convertFahrenheitToCelsius
 import weather.way.utils.convertTimestampToTime
 
-class WeatherFragment : MvpAppCompatFragment(), WeatherView {
+class WeatherNameFragment : MvpAppCompatFragment(), WeatherView {
+
+    private var _binding: FragmentWeatherNameBinding? = null
+    val binding: FragmentWeatherNameBinding
+        get() = _binding ?: throw RuntimeException(Constants.FRAGMENT_WEATHER_NAME_BINDING_NULL)
 
     private var adapter: WeatherPerHourAdapter? = null
 
@@ -36,52 +40,24 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
     @ProvidePresenter
     fun provide(): AbstractWeatherPresenter = get()
 
-    private var _binding: FragmentWeatherBinding? = null
-    val binding: FragmentWeatherBinding
-        get() = _binding ?: throw RuntimeException(Constants.FRAGMENT_WEATHER_BINDING_NULL)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentWeatherBinding.inflate(inflater, container, false)
+        _binding = FragmentWeatherNameBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.getForecastByName(getCityName())
-        presenter.getHourlyForecast(getCityLon(), getCityLat())
-
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         adapter = null
-    }
-
-    private fun setAdapter() {
-        adapter = WeatherPerHourAdapter()
-        binding.rvWeatherPerHour.adapter = adapter
-    }
-
-    private fun getCityLon(): String {
-        return requireArguments().getString(LON, EMPTY_STRING)
-    }
-
-    private fun getCityLat(): String {
-        return requireArguments().getString(LAT, EMPTY_STRING)
-    }
-
-    private fun getCityName(): String {
-        return requireArguments().getString(CITY_NAME, EMPTY_STRING)
-    }
-
-    override fun addCityToFavouriteList(commonInfo: CommonInfo) {
-        binding.btnAddToFavourite.visibility = View.VISIBLE
     }
 
     override fun showHourlyForecast(commonInfo: CommonInfo) {
@@ -94,23 +70,33 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         binding.tvSunriseValue.text = convertTimestampToTime(commonInfo.city.sunrise)
         binding.tvSunsetValue.text = convertTimestampToTime(commonInfo.city.sunset)
         with(commonInfo.list[2].main) {
-            binding.tvCurrentTemp.text = convertFahrenheitToCelsius(temp).toString() + CELSIUS
+            binding.tvCurrentTemp.text = convertFahrenheitToCelsius(temp).toString() + Constants.CELSIUS
             binding.tvFeelsLikeValue.text =
-                convertFahrenheitToCelsius(feels_like).toString() + CELSIUS
+                convertFahrenheitToCelsius(feels_like).toString() + Constants.CELSIUS
         }
         setAdapter()
         adapter?.myData = commonInfo.list
         adapter?.submitList(commonInfo.list)
-        binding.btnFavouriteCities.setOnClickListener {
+        binding.btnGoToFav.setOnClickListener {
             launchFavouriteFragment()
-        }
+        }}
+
+    override fun addCityToFavouriteList(commonInfo: CommonInfo) {
+        binding.btnAddToFavourite.visibility = View.VISIBLE
     }
 
+    private fun setAdapter() {
+        adapter = WeatherPerHourAdapter()
+        binding.rvWeatherPerHour.adapter = adapter
+    }
+
+
     private fun setComponentsVisibility() {
+        binding.btnGoToFav.visibility = View.VISIBLE
         binding.tvSunriseTitle.visibility = View.VISIBLE
         binding.tvSunsetTitle.visibility = View.VISIBLE
         binding.btnAddToFavourite.visibility = View.VISIBLE
-        binding.btnFavouriteCities.visibility = View.VISIBLE
+//        binding.btnSettings.visibility = View.VISIBLE
         binding.weatherProgressBar.visibility = View.GONE
     }
 
@@ -163,6 +149,9 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
 
         }
     }
+    private fun getCityName(): String {
+        return requireArguments().getString(Constants.CITY_NAME, Constants.EMPTY_STRING)
+    }
 
     private fun launchFavouriteFragment() {
         requireActivity().supportFragmentManager.beginTransaction()
@@ -172,19 +161,11 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
     }
 
     companion object {
-        fun newInstance(lon: String, lat: String) =
-            WeatherFragment().apply {
-                arguments = Bundle().apply {
-                    putString(LON, lon)
-                }.apply {
-                    putString(LAT, lat)
-                }
-            }
 
-        fun newInstance2(cityName: String) =
-            WeatherFragment().apply {
+        fun newInstance(param1: String, param2: String) =
+            WeatherNameFragment().apply {
                 arguments = Bundle().apply {
-                    putString(CITY_NAME, cityName)
+
                 }
             }
     }

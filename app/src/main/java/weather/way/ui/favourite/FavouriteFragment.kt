@@ -63,6 +63,7 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
 
     private fun setComponentsVisibility() {
         binding.tvFavouriteTitle.visibility = View.VISIBLE
+        binding.btnAddCity.visibility = View.VISIBLE
         binding.favouriteProgressBar.visibility = View.GONE
     }
 

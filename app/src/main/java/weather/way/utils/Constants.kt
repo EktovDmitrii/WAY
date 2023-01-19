@@ -7,6 +7,7 @@ object Constants {
     const val LAT = "lat"
     const val FRAGMENT_WEATHER_BINDING_NULL = "Fragment weather is null"
     const val FRAGMENT_Start_BINDING_NULL = "Fragment start is null"
+    const val FRAGMENT_WEATHER_NAME_BINDING_NULL = "Fragment weather name is null"
     const val CELSIUS = "°"
     const val CLOUDS = "Clouds"
     const val RAIN = "Rain"
