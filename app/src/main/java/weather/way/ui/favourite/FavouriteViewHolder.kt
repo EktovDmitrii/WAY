@@ -13,6 +13,7 @@ import weather.way.domain.model.HourlyForecast
 import weather.way.utils.Constants
 import weather.way.utils.Constants.CELSIUS
 import weather.way.utils.convertFahrenheitToCelsius
+import weather.way.utils.convertTimestampToTime
 
 class FavouriteViewHolder(
     itemView: View,
@@ -25,8 +26,9 @@ class FavouriteViewHolder(
     @RequiresApi(Build.VERSION_CODES.N)
     fun bind(commonInfo: CommonInfo) {
         binding.tvCityTemp.text =
-            convertFahrenheitToCelsius(commonInfo.list[1].main.temp).toString() + CELSIUS
+            convertFahrenheitToCelsius(commonInfo.list[0].main.temp).toString() + CELSIUS
         binding.tvCityNameInFav.text = commonInfo.city.name
+        binding.timeTest.text = convertTimestampToTime(commonInfo.list[0].dt)
         setRightImage(commonInfo)
 
         binding.rightView.setOnClickListener(View.OnClickListener {

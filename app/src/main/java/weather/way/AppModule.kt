@@ -49,7 +49,10 @@ val appModule = module {
         )
     }
     factory<AbstractFavouritePresenter> {
-        FavouritePresenterImpl(get())
+        FavouritePresenterImpl(
+            get(),
+            get()
+        )
     }
 
     factory<AbstractStartPresenter> {

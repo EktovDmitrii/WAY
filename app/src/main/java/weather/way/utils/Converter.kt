@@ -9,7 +9,7 @@ import java.util.*
 fun convertTimestampToTime(timestamp: Int?): String {
     if (timestamp == null) return ""
     val stamp = Timestamp((timestamp * 1000L))
-    val pattern = "HH:mm"
+    val pattern = "DD:MM:HH:mm"
     val sdf = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         SimpleDateFormat(pattern, Locale.getDefault())
     } else {

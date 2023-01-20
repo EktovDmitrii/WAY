@@ -5,9 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -15,9 +12,9 @@ import org.koin.android.ext.android.get
 import weather.way.R
 import weather.way.databinding.FragmentFavouriteBinding
 import weather.way.domain.model.CommonInfo
+import weather.way.ui.start.StartFragment
 import weather.way.ui.weather.WeatherFragment
 import weather.way.utils.Constants
-import weather.way.utils.Constants.CITY_NAME
 
 class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
 
@@ -47,7 +44,6 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
         super.onViewCreated(view, savedInstanceState)
         presenter.getWeatherList()
         setAdapter()
-
     }
 
     override fun onDestroyView() {
@@ -55,10 +51,18 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
         _binding = null
     }
 
+    override fun updateAllData(commonInfo: CommonInfo) {
+      presenter.getForecastByName(commonInfo.city.name)
+    }
+
+
     override fun showFavouriteList(commonInfo: List<CommonInfo>) {
         adapter.myData = commonInfo
         adapter.submitList(commonInfo)
         setComponentsVisibility()
+        binding.btnAddCity.setOnClickListener {
+            launchStartFragment()
+        }
     }
 
     private fun setComponentsVisibility() {
@@ -74,7 +78,7 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
     private fun setAdapter() {
         adapter = FavouriteAdapter(
             onItemClickListenerFavorites = {
-               launchWeatherFragmentByName(it.city.name)
+                launchWeatherFragmentByName(it.city.name)
             },
             onItemClickDelete = {
                 presenter.deleteCity(it)
@@ -87,6 +91,14 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
         Log.d("start_Fragment", "Fragment launched")
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, WeatherFragment.newInstance2(cityName))
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun launchStartFragment() {
+        Log.d("start_Fragment", "Fragment launched")
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, StartFragment.newInstance())
             .addToBackStack(null)
             .commit()
     }

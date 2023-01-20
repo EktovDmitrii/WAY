@@ -14,4 +14,6 @@ interface DaoRepository {
     fun addCity(commonInfo: CommonInfo): Completable
 
     fun getCityWeatherList():Single<List<CommonInfo>>
+
+    fun updateData(commonInfo: CommonInfo): Completable
 }

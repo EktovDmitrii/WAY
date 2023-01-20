@@ -42,13 +42,13 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_add_to_favourite"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="10dp"
             android:src="@drawable/ic_not_in_favourite"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_favourite_cities" />
+            app:layout_constraintEnd_toStartOf="@id/btn_favourite_cities"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_city_name"
@@ -98,24 +98,27 @@
             app:layout_constraintTop_toBottomOf="@id/tv_current_temp"
             tools:text="7" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_weather_per_hour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_fells_like"
-            tools:listitem="@layout/weather_per_hour_card" />
-
-        <androidx.viewpager2.widget.ViewPager2
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_rv_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            app:cardBackgroundColor="@color/shadowGrey"
+            app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_weather_per_hour"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_fells_like">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_weather_per_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/weather_per_hour_card" />
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sun_info_layout"
@@ -123,7 +126,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_weather_per_hour">
+            app:layout_constraintTop_toBottomOf="@id/cv_rv_card">
 
             <TextView
                 android:id="@+id/tv_sunrise_title"
@@ -167,8 +170,8 @@
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:visibility="invisible"
-                app:layout_constraintEnd_toStartOf="@id/tv_sunset_value"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_sunset_value" />
 
             <TextView
                 android:id="@+id/tv_sunset_value"
@@ -177,8 +180,8 @@
                 android:layout_marginStart="7dp"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:text="16:20" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

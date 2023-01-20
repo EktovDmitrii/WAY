@@ -93,7 +93,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         binding.tvCityName.text = commonInfo.city.name
         binding.tvSunriseValue.text = convertTimestampToTime(commonInfo.city.sunrise)
         binding.tvSunsetValue.text = convertTimestampToTime(commonInfo.city.sunset)
-        with(commonInfo.list[2].main) {
+        with(commonInfo.list[0].main) {
             binding.tvCurrentTemp.text = convertFahrenheitToCelsius(temp).toString() + CELSIUS
             binding.tvFeelsLikeValue.text =
                 convertFahrenheitToCelsius(feels_like).toString() + CELSIUS
