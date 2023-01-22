@@ -9,6 +9,8 @@ interface StartView : MvpView {
 
     fun clearSearchField()
 
+    fun clearGeoData()
+
     fun startWeatherFragmentByName(cityName: String)
 
     fun startWeatherFragmentByGeo(lon: String, lat: String)

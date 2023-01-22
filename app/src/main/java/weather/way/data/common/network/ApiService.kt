@@ -15,8 +15,8 @@ interface ApiService {
 
     @GET("data/2.5/forecast")
     fun getHourlyForecastByGeo(
-        @Query(PATH_PARAM_LON) lon: String,
-        @Query(PATH_PARAM_LAT) lat: String,
+        @Query(PATH_PARAM_LON) lon: String?,
+        @Query(PATH_PARAM_LAT) lat: String?,
         @Query(TIME_PERIOD) exclude: String = TIME_PERIOD_NAME,
         @Query(QUERY_PARAM_APP_ID) appId: String = APP_ID_VALUE,
     ): Single<ApiResponseHourlyForecast>

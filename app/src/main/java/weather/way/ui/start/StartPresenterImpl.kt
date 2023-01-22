@@ -31,7 +31,7 @@ class StartPresenterImpl(
         compositeDisposable.add(disposable)
     }
 
-    override fun searchCityByGeo(lon: String, lat: String) {
+    override fun searchCityByGeo(lon: String?, lat: String?) {
         val disposable = getHourlyForecastUseCase.getHourlyForecast(lon, lat)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -40,6 +40,7 @@ class StartPresenterImpl(
                     it.city.coord.lon.toString(),
                     it.city.coord.lat.toString()
                 )
+                viewState.clearGeoData()
                 Log.d("WEATHER_CHECK", it.toString())
             }, {
                 Log.d("WEATHER_CHECK", "Ебаный сука нахуй нет данных")

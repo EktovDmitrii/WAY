@@ -69,7 +69,7 @@ class RepositoryImpl(
         }
     }
 
-    override fun getHourlyForecastByGeo(lon: String, lat: String): Single<CommonInfo> {
+    override fun getHourlyForecastByGeo(lon: String?, lat: String?): Single<CommonInfo> {
         val weatherList = dao.getAllWeatherList()
         val forecast = apiService.getHourlyForecastByGeo(lon, lat)
         return Single.zip(weatherList, forecast) { daoResult, responseResult ->

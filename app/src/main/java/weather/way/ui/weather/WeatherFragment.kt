@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import com.bumptech.glide.Glide
 import com.github.matteobattilana.weather.PrecipType
 import kotlinx.android.synthetic.main.fragment_weather.*
@@ -53,8 +54,6 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         super.onViewCreated(view, savedInstanceState)
         presenter.getForecastByName(getCityName())
         presenter.getHourlyForecast(getCityLon(), getCityLat())
-
-
     }
 
     override fun onDestroyView() {
@@ -104,7 +103,11 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         binding.btnFavouriteCities.setOnClickListener {
             launchFavouriteFragment()
         }
+//        binding.tvCityName.setOnClickListener {
+//            backPressed()
+//        }
     }
+
 
     private fun setComponentsVisibility() {
         binding.tvSunriseTitle.visibility = View.VISIBLE
@@ -160,9 +163,13 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
             }
             commonInfo.isInFavourite = true
             Log.d("IS_IN_FAVOURITE", "after change: ${commonInfo.isInFavourite}")
-
         }
     }
+
+//
+//    private fun backPressed() {
+//        requireActivity().supportFragmentManager.findFragmentByTag("GeoFrag")
+//    }
 
     private fun launchFavouriteFragment() {
         requireActivity().supportFragmentManager.beginTransaction()

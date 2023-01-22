@@ -7,5 +7,5 @@ interface ApiRepository {
 
     fun getHourlyForecastByName(cityName: String): Single<CommonInfo>
 
-    fun getHourlyForecastByGeo(lon: String, lat: String): Single<CommonInfo>
+    fun getHourlyForecastByGeo(lon: String?, lat: String?): Single<CommonInfo>
 }

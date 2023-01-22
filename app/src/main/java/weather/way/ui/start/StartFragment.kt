@@ -23,12 +23,12 @@ import weather.way.ui.weather.WeatherFragment
 import weather.way.utils.Constants.FRAGMENT_WEATHER_BINDING_NULL
 import weather.way.utils.GeoLocationManager
 
-class StartFragment : MvpAppCompatFragment(), StartView{
+class StartFragment : MvpAppCompatFragment(), StartView {
     private lateinit var locationManager: GeoLocationManager
     private var locationTrackingRequested = false
     private val LOCATION_PERMISSION_CODE = 1000
-    private var lon: String = ""
-    private var lat: String = ""
+    private var lon: String? = null
+    private var lat: String? = null
 
     private var _binding: FragmentStartBinding? = null
     val binding: FragmentStartBinding
@@ -51,25 +51,18 @@ class StartFragment : MvpAppCompatFragment(), StartView{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        locationManager = GeoLocationManager(requireContext())
         binding.btnStartSearch.setOnClickListener {
-            locationManager = GeoLocationManager(requireContext())
             presenter.searchCityByName(binding.etCityNameSearch.text.toString())
         }
         binding.btnStartFavouriteFrag.setOnClickListener {
-            locationManager = GeoLocationManager(requireContext())
             launchFavouriteFragment()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         binding.btnFindByLocation.setOnClickListener {
+//            presenter.searchCityByGeo(lon, lat)
 //            launchWeatherFragmentByGeo(lon, lat)
 
-            Log.d("MainActivityy", "$lat $lon")
-
-            locationManager = GeoLocationManager(requireContext())
             val permissionGranted = ActivityCompat.checkSelfPermission(
                 requireContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
@@ -84,20 +77,22 @@ class StartFragment : MvpAppCompatFragment(), StartView{
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        locationManager.stopLocationTracking()
-//        requireActivity().supportFragmentManager.tran
-    }
+
+
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-
     }
+
 
     override fun clearSearchField() {
         binding.etCityNameSearch.text = null
+    }
+
+    override fun clearGeoData() {
+        lon = null
+        lat = null
     }
 
     override fun startWeatherFragmentByName(cityName: String) {
@@ -105,7 +100,7 @@ class StartFragment : MvpAppCompatFragment(), StartView{
     }
 
     override fun startWeatherFragmentByGeo(lon: String, lat: String) {
-//        launchWeatherFragmentByGeo(lon, lat)
+        launchWeatherFragmentByGeo(lon, lat)
     }
 
     private val locationCallback = object : LocationCallback() {
@@ -114,12 +109,9 @@ class StartFragment : MvpAppCompatFragment(), StartView{
             for (location in p0.locations) {
                 lat = location.latitude.toString()
                 lon = location.longitude.toString()
-//                Log.d("MainActivityy", "$lat $lon")
-//                launchWeatherFragmentByGeo(lon, lat)
                 locationManager.stopLocationTracking()
             }
             presenter.searchCityByGeo(lon, lat)
-            launchWeatherFragmentByGeo(lon, lat)
 
         }
     }
@@ -162,13 +154,6 @@ class StartFragment : MvpAppCompatFragment(), StartView{
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        if (locationTrackingRequested) {
-//            locationManager.stopLocationTracking()
-//        }
-//    }
-
     private fun launchWeatherFragmentByName(cityName: String) {
         Log.d("start_Fragment", "Fragment launched")
         requireActivity().supportFragmentManager.beginTransaction()
@@ -176,6 +161,7 @@ class StartFragment : MvpAppCompatFragment(), StartView{
             .addToBackStack(null)
             .commit()
     }
+
     private fun launchFavouriteFragment() {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, FavouriteFragment.newInstance())

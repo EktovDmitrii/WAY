@@ -28,7 +28,6 @@ class FavouriteViewHolder(
         binding.tvCityTemp.text =
             convertFahrenheitToCelsius(commonInfo.list[0].main.temp).toString() + CELSIUS
         binding.tvCityNameInFav.text = commonInfo.city.name
-        binding.timeTest.text = convertTimestampToTime(commonInfo.list[0].dt)
         setRightImage(commonInfo)
 
         binding.rightView.setOnClickListener(View.OnClickListener {
