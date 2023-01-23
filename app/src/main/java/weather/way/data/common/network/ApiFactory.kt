@@ -3,9 +3,9 @@ package weather.way.data.common.network
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import weather.way.utils.Constants.BASE_URL
 
 object ApiFactory {
-    private const val BASE_URL = "https://api.openweathermap.org"
 
     private val retrofit by lazy {
         Retrofit.Builder()

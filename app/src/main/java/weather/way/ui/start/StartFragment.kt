@@ -20,6 +20,7 @@ import weather.way.databinding.FragmentStartBinding
 import weather.way.domain.model.CommonInfo
 import weather.way.ui.favourite.FavouriteFragment
 import weather.way.ui.weather.WeatherFragment
+import weather.way.utils.Constants.FRAGMENT_START_BINDING_NULL
 import weather.way.utils.Constants.FRAGMENT_WEATHER_BINDING_NULL
 import weather.way.utils.GeoLocationManager
 
@@ -32,7 +33,7 @@ class StartFragment : MvpAppCompatFragment(), StartView {
 
     private var _binding: FragmentStartBinding? = null
     val binding: FragmentStartBinding
-        get() = _binding ?: throw RuntimeException(FRAGMENT_WEATHER_BINDING_NULL)
+        get() = _binding ?: throw RuntimeException(FRAGMENT_START_BINDING_NULL)
 
     @InjectPresenter
     lateinit var presenter: AbstractStartPresenter

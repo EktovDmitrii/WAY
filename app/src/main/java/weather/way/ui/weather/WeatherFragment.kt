@@ -19,8 +19,10 @@ import weather.way.domain.model.CommonInfo
 import weather.way.ui.favourite.FavouriteFragment
 import weather.way.utils.Constants
 import weather.way.utils.Constants.CELSIUS
+import weather.way.utils.Constants.WEATHER_DATA
 import weather.way.utils.convertFahrenheitToCelsius
 import weather.way.utils.convertTimestampToTime
+import weather.way.utils.convertTimestampToTimeForecast
 
 class WeatherFragment : MvpAppCompatFragment(), WeatherView {
 
@@ -62,7 +64,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
     }
 
     private fun getData(): CommonInfo{
-        return requireArguments().getSerializable("qwer") as CommonInfo
+        return requireArguments().getSerializable(WEATHER_DATA) as CommonInfo
     }
 
     override fun addCityToFavouriteList(commonInfo: CommonInfo) {
@@ -76,6 +78,8 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         setBackground(commonInfo)
         setComponentsVisibility()
         setAllBinds(commonInfo)
+        checkDayTime(commonInfo)
+        binding.cvSunInfoCard.setBackgroundResource(R.drawable.round_corners)
         setAdapter()
         adapter?.myData = commonInfo.list
         adapter?.submitList(commonInfo.list)
@@ -107,6 +111,8 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
             btnFavouriteCities.visibility = View.VISIBLE
             ivSunIcon.visibility = View.VISIBLE
             cvRvCard.visibility = View.VISIBLE
+            cvWindInfoCard.visibility = View.VISIBLE
+            tvUsefulInfo.visibility = View.VISIBLE
             cvSunInfoCard.visibility = View.VISIBLE
             tvFellsLike.visibility = View.VISIBLE
             weatherProgressBar.visibility = View.GONE
@@ -118,6 +124,12 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
             Glide.with(this).load(R.drawable.ic_in_favourite)
                 .into(binding.btnAddToFavourite)
         }
+    }
+
+    private fun checkDayTime(commonInfo: CommonInfo){
+        if (commonInfo.list[0].dt >= commonInfo.city.sunrise && commonInfo.list[0].dt <= commonInfo.city.sunset)
+            Glide.with(this).load(R.drawable.ic_sunny_vector)
+                .into(binding.ivSunIcon)
     }
 
     private fun setWeatherBackground(commonInfo: CommonInfo) {
@@ -170,27 +182,12 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
     }
 
     companion object {
-//        fun newInstance(lon: String, lat: String) =
-//            WeatherFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(LON, lon)
-//                }.apply {
-//                    putString(LAT, lat)
-//                }
-//            }
 
         fun newInstance(commonInfo: CommonInfo) =
             WeatherFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable("qwer", commonInfo)
+                    putSerializable(WEATHER_DATA, commonInfo)
                 }
             }
-
-//        fun newInstance2(cityName: String) =
-//            WeatherFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(CITY_NAME, cityName)
-//                }
-//            }
     }
 }

@@ -29,7 +29,7 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
 
     private var _binding: FragmentFavouriteBinding? = null
     val binding: FragmentFavouriteBinding
-        get() = _binding ?: throw RuntimeException(Constants.FRAGMENT_WEATHER_BINDING_NULL)
+        get() = _binding ?: throw RuntimeException(Constants.FRAGMENT_FAVOURITE_BINDING_NULL)
 
 
     override fun onCreateView(
