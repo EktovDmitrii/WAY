@@ -115,6 +115,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
             tvUsefulInfo.visibility = View.VISIBLE
             cvSunInfoCard.visibility = View.VISIBLE
             tvFellsLike.visibility = View.VISIBLE
+            cvWindInfoCard.visibility = View.VISIBLE
             weatherProgressBar.visibility = View.GONE
         }
     }
