@@ -78,7 +78,7 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
     private fun setAdapter() {
         adapter = FavouriteAdapter(
             onItemClickListenerFavorites = {
-                launchWeatherFragmentByName(it.city.name)
+                launchWeatherFragmentByName(it)
             },
             onItemClickDelete = {
                 presenter.deleteCity(it)
@@ -87,10 +87,10 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
         binding.rvFavouriteCities.adapter = adapter
     }
 
-    private fun launchWeatherFragmentByName(cityName: String) {
+    private fun launchWeatherFragmentByName(commonInfo: CommonInfo) {
         Log.d("start_Fragment", "Fragment launched")
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, WeatherFragment.newInstance2(cityName))
+            .replace(R.id.fragment_container_view, WeatherFragment.newInstance(commonInfo))
             .addToBackStack(null)
             .commit()
     }

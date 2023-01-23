@@ -24,7 +24,7 @@ class StartPresenterImpl(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                viewState.startWeatherFragmentByName(it.city.name)
+                viewState.startWeatherFragment(it)
                 viewState.clearSearchField()
             }, {
             })
@@ -36,10 +36,7 @@ class StartPresenterImpl(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                viewState.startWeatherFragmentByGeo(
-                    it.city.coord.lon.toString(),
-                    it.city.coord.lat.toString()
-                )
+                viewState.startWeatherFragment(it)
                 viewState.clearGeoData()
                 Log.d("WEATHER_CHECK", it.toString())
             }, {

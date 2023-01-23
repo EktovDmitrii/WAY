@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import com.bumptech.glide.Glide
 import com.github.matteobattilana.weather.PrecipType
 import kotlinx.android.synthetic.main.fragment_weather.*
@@ -20,10 +19,6 @@ import weather.way.domain.model.CommonInfo
 import weather.way.ui.favourite.FavouriteFragment
 import weather.way.utils.Constants
 import weather.way.utils.Constants.CELSIUS
-import weather.way.utils.Constants.CITY_NAME
-import weather.way.utils.Constants.EMPTY_STRING
-import weather.way.utils.Constants.LAT
-import weather.way.utils.Constants.LON
 import weather.way.utils.convertFahrenheitToCelsius
 import weather.way.utils.convertTimestampToTime
 
@@ -52,8 +47,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.getForecastByName(getCityName())
-        presenter.getHourlyForecast(getCityLon(), getCityLat())
+        presenter.getForecastByName(getData().city.name)
     }
 
     override fun onDestroyView() {
@@ -67,16 +61,8 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         binding.rvWeatherPerHour.adapter = adapter
     }
 
-    private fun getCityLon(): String {
-        return requireArguments().getString(LON, EMPTY_STRING)
-    }
-
-    private fun getCityLat(): String {
-        return requireArguments().getString(LAT, EMPTY_STRING)
-    }
-
-    private fun getCityName(): String {
-        return requireArguments().getString(CITY_NAME, EMPTY_STRING)
+    private fun getData(): CommonInfo{
+        return requireArguments().getSerializable("qwer") as CommonInfo
     }
 
     override fun addCityToFavouriteList(commonInfo: CommonInfo) {
@@ -176,11 +162,6 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         }
     }
 
-//
-//    private fun backPressed() {
-//        requireActivity().supportFragmentManager.findFragmentByTag("GeoFrag")
-//    }
-
     private fun launchFavouriteFragment() {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, FavouriteFragment.newInstance())
@@ -189,20 +170,27 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
     }
 
     companion object {
-        fun newInstance(lon: String, lat: String) =
+//        fun newInstance(lon: String, lat: String) =
+//            WeatherFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString(LON, lon)
+//                }.apply {
+//                    putString(LAT, lat)
+//                }
+//            }
+
+        fun newInstance(commonInfo: CommonInfo) =
             WeatherFragment().apply {
                 arguments = Bundle().apply {
-                    putString(LON, lon)
-                }.apply {
-                    putString(LAT, lat)
+                    putSerializable("qwer", commonInfo)
                 }
             }
 
-        fun newInstance2(cityName: String) =
-            WeatherFragment().apply {
-                arguments = Bundle().apply {
-                    putString(CITY_NAME, cityName)
-                }
-            }
+//        fun newInstance2(cityName: String) =
+//            WeatherFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString(CITY_NAME, cityName)
+//                }
+//            }
     }
 }

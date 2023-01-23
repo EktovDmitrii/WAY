@@ -3,6 +3,7 @@ package weather.way.ui.start
 import moxy.MvpView
 import moxy.viewstate.strategy.SingleStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
+import weather.way.domain.model.CommonInfo
 
 @StateStrategyType(SingleStateStrategy::class)
 interface StartView : MvpView {
@@ -11,7 +12,6 @@ interface StartView : MvpView {
 
     fun clearGeoData()
 
-    fun startWeatherFragmentByName(cityName: String)
+    fun startWeatherFragment(commonInfo: CommonInfo)
 
-    fun startWeatherFragmentByGeo(lon: String, lat: String)
 }

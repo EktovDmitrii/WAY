@@ -17,6 +17,7 @@ import moxy.presenter.ProvidePresenter
 import org.koin.android.ext.android.get
 import weather.way.R
 import weather.way.databinding.FragmentStartBinding
+import weather.way.domain.model.CommonInfo
 import weather.way.ui.favourite.FavouriteFragment
 import weather.way.ui.weather.WeatherFragment
 import weather.way.utils.Constants.FRAGMENT_WEATHER_BINDING_NULL
@@ -89,12 +90,8 @@ class StartFragment : MvpAppCompatFragment(), StartView {
         lat = null
     }
 
-    override fun startWeatherFragmentByName(cityName: String) {
-        launchWeatherFragmentByName(cityName)
-    }
-
-    override fun startWeatherFragmentByGeo(lon: String, lat: String) {
-        launchWeatherFragmentByGeo(lon, lat)
+    override fun startWeatherFragment(commonInfo: CommonInfo) {
+        launchCommonWeatherFragment(commonInfo)
     }
 
     private val locationCallback = object : LocationCallback() {
@@ -148,13 +145,6 @@ class StartFragment : MvpAppCompatFragment(), StartView {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    private fun launchWeatherFragmentByName(cityName: String) {
-        Log.d("start_Fragment", "Fragment launched")
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, WeatherFragment.newInstance2(cityName))
-            .addToBackStack(null)
-            .commit()
-    }
 
     private fun launchFavouriteFragment() {
         requireActivity().supportFragmentManager.beginTransaction()
@@ -163,9 +153,9 @@ class StartFragment : MvpAppCompatFragment(), StartView {
             .commit()
     }
 
-    private fun launchWeatherFragmentByGeo(lon: String, lat: String) {
+    private fun launchCommonWeatherFragment(commonInfo: CommonInfo) {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, WeatherFragment.newInstance(lon, lat))
+            .replace(R.id.fragment_container_view, WeatherFragment.newInstance(commonInfo))
             .addToBackStack(null)
             .commit()
     }
