@@ -79,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
             android:text="@string/feels_like"
+            android:visibility="invisible"
             android:textColor="@color/white"
             android:textSize="30sp"
             app:layout_constraintEnd_toStartOf="@id/tv_feels_like_value"
@@ -103,6 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="7dp"
+            android:visibility="invisible"
             app:cardBackgroundColor="@color/shadowGrey"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -153,9 +155,11 @@
                 tools:text="4:20" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_sun_icon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/ic_sun_vector"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

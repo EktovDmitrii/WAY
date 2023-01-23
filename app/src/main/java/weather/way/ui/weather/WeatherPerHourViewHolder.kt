@@ -15,6 +15,7 @@ import weather.way.utils.Constants.SNOW
 import weather.way.utils.Constants.SUN
 import weather.way.utils.convertFahrenheitToCelsius
 import weather.way.utils.convertTimestampToTime
+import weather.way.utils.convertTimestampToTimeForecast
 
 class WeatherPerHourViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -23,7 +24,7 @@ class WeatherPerHourViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     @RequiresApi(Build.VERSION_CODES.N)
     fun bind(forecast: HourlyForecast) {
         with(binding) {
-            tvHourLabel.text = convertTimestampToTime(forecast.dt)
+            tvHourLabel.text = convertTimestampToTimeForecast(forecast.dt)
             tvHourTemp.text = convertFahrenheitToCelsius(forecast.main.temp).toString() + CELSIUS
             setRightImage(forecast)
         }

@@ -11,7 +11,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -60,9 +59,6 @@ class StartFragment : MvpAppCompatFragment(), StartView {
         }
 
         binding.btnFindByLocation.setOnClickListener {
-//            presenter.searchCityByGeo(lon, lat)
-//            launchWeatherFragmentByGeo(lon, lat)
-
             val permissionGranted = ActivityCompat.checkSelfPermission(
                 requireContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
@@ -76,8 +72,6 @@ class StartFragment : MvpAppCompatFragment(), StartView {
             }
         }
     }
-
-
 
 
     override fun onDestroy() {

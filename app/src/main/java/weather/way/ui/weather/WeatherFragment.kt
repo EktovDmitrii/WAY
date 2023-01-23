@@ -89,32 +89,41 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         setFavouriteButton(commonInfo)
         setBackground(commonInfo)
         setComponentsVisibility()
+        setAllBinds(commonInfo)
+        setAdapter()
+        adapter?.myData = commonInfo.list
+        adapter?.submitList(commonInfo.list)
+
+    }
+
+    private fun setAllBinds(
+        commonInfo: CommonInfo
+    ) {
         binding.tvCityName.text = commonInfo.city.name
-        binding.tvSunriseValue.text = convertTimestampToTime(commonInfo.city.sunrise)
-        binding.tvSunsetValue.text = convertTimestampToTime(commonInfo.city.sunset)
+        binding.tvSunriseValue.text = convertTimestampToTime(commonInfo.city.sunrise, commonInfo)
+        binding.tvSunsetValue.text = convertTimestampToTime(commonInfo.city.sunset, commonInfo)
         with(commonInfo.list[0].main) {
             binding.tvCurrentTemp.text = convertFahrenheitToCelsius(temp).toString() + CELSIUS
             binding.tvFeelsLikeValue.text =
                 convertFahrenheitToCelsius(feels_like).toString() + CELSIUS
         }
-        setAdapter()
-        adapter?.myData = commonInfo.list
-        adapter?.submitList(commonInfo.list)
         binding.btnFavouriteCities.setOnClickListener {
             launchFavouriteFragment()
         }
-//        binding.tvCityName.setOnClickListener {
-//            backPressed()
-//        }
     }
 
 
     private fun setComponentsVisibility() {
-        binding.tvSunriseTitle.visibility = View.VISIBLE
-        binding.tvSunsetTitle.visibility = View.VISIBLE
-        binding.btnAddToFavourite.visibility = View.VISIBLE
-        binding.btnFavouriteCities.visibility = View.VISIBLE
-        binding.weatherProgressBar.visibility = View.GONE
+        with(binding) {
+            tvSunriseTitle.visibility = View.VISIBLE
+            tvSunsetTitle.visibility = View.VISIBLE
+            btnAddToFavourite.visibility = View.VISIBLE
+            btnFavouriteCities.visibility = View.VISIBLE
+            ivSunIcon.visibility = View.VISIBLE
+            cvRvCard.visibility = View.VISIBLE
+            tvFellsLike.visibility = View.VISIBLE
+            weatherProgressBar.visibility = View.GONE
+        }
     }
 
     private fun setFavouriteButton(commonInfo: CommonInfo) {
