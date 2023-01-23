@@ -73,7 +73,7 @@ class RepositoryImpl(
         val weatherList = dao.getAllWeatherList()
         val forecast = apiService.getHourlyForecastByGeo(lon, lat)
         return Single.zip(weatherList, forecast) { daoResult, responseResult ->
-            val isInFavourite = daoResult.find { it.lon.toString() == lon } != null
+            val isInFavourite = daoResult.find { it.lon.toString() == lon && it.lat.toString() == lat } != null
             CommonInfo(
                 cod = responseResult.cod,
                 message = responseResult.message,
