@@ -63,7 +63,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         binding.rvWeatherPerHour.adapter = adapter
     }
 
-    private fun getData(): CommonInfo{
+    private fun getData(): CommonInfo {
         return requireArguments().getSerializable(WEATHER_DATA) as CommonInfo
     }
 
@@ -79,7 +79,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         setComponentsVisibility()
         setAllBinds(commonInfo)
         checkDayTime(commonInfo)
-        binding.cvSunInfoCard.setBackgroundResource(R.drawable.round_corners)
+//        binding.cvSunInfoCard.setBackgroundResource(R.drawable.round_corners)
         setAdapter()
         adapter?.myData = commonInfo.list
         adapter?.submitList(commonInfo.list)
@@ -89,16 +89,24 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
     private fun setAllBinds(
         commonInfo: CommonInfo
     ) {
-        binding.tvCityName.text = commonInfo.city.name
-        binding.tvSunriseValue.text = convertTimestampToTime(commonInfo.city.sunrise, commonInfo)
-        binding.tvSunsetValue.text = convertTimestampToTime(commonInfo.city.sunset, commonInfo)
-        with(commonInfo.list[0].main) {
-            binding.tvCurrentTemp.text = convertFahrenheitToCelsius(temp).toString() + CELSIUS
-            binding.tvFeelsLikeValue.text =
-                convertFahrenheitToCelsius(feels_like).toString() + CELSIUS
-        }
-        binding.btnFavouriteCities.setOnClickListener {
-            launchFavouriteFragment()
+        with(binding) {
+            tvCityName.text = commonInfo.city.name
+            tvSunriseValue.text =
+                convertTimestampToTime(commonInfo.city.sunrise, commonInfo)
+            tvSunsetValue.text = convertTimestampToTime(commonInfo.city.sunset, commonInfo)
+            with(commonInfo.list[0]) {
+                tvCurrentTemp.text =
+                    convertFahrenheitToCelsius(main.temp).toString() + CELSIUS
+                tvFeelsLikeValue.text =
+                    convertFahrenheitToCelsius(main.feels_like).toString() + CELSIUS
+                tvWindValue.text = wind.gust.toString()
+                tvPressureValue.text = main.pressure.toString()
+                tvHumidityValue.text = main.humidity.toString()
+                tvCloudinessValue.text = clouds.all.toString()
+            }
+            btnFavouriteCities.setOnClickListener {
+                launchFavouriteFragment()
+            }
         }
     }
 
@@ -127,7 +135,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         }
     }
 
-    private fun checkDayTime(commonInfo: CommonInfo){
+    private fun checkDayTime(commonInfo: CommonInfo) {
         if (commonInfo.list[0].dt >= commonInfo.city.sunrise && commonInfo.list[0].dt <= commonInfo.city.sunset)
             Glide.with(this).load(R.drawable.ic_sunny_vector)
                 .into(binding.ivSunIcon)

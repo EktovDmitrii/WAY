@@ -37,6 +37,7 @@ fun CommonInfo.toDbEntity(): CommonInfoDbModel {
                         icon = weather.icon
                     )
                 },
+                it.clouds.all,
                 it.wind.speed,
                 it.wind.deg,
                 it.wind.gust,

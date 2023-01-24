@@ -48,7 +48,10 @@ class RepositoryImpl(
                         ),
                         visibility = hourlyForecastDto.visibility,
                         pop = hourlyForecastDto.pop,
-                        dt_txt = hourlyForecastDto.dt_txt
+                        dt_txt = hourlyForecastDto.dt_txt,
+                        clouds = Clouds(
+                            all = hourlyForecastDto.cloud.all
+                        )
                     )
                 },
                 city = City(
@@ -107,7 +110,10 @@ class RepositoryImpl(
                         ),
                         visibility = hourlyForecastDto.visibility,
                         pop = hourlyForecastDto.pop,
-                        dt_txt = hourlyForecastDto.dt_txt
+                        dt_txt = hourlyForecastDto.dt_txt,
+                        clouds = Clouds(
+                            all = hourlyForecastDto.cloud.all
+                        )
                     )
                 },
                 city = City(

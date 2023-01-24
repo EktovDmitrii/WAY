@@ -8,6 +8,7 @@ data class HourlyForecast(
     val dt: Int,
     val main: MainWeather,
     val weather: List<Weather>,
+    val clouds: Clouds,
     val wind: Wind,
     val visibility: Int,
     val pop: Double,
@@ -34,6 +35,7 @@ fun HourlyForecast.toDbEntity(): ForecastDbModel {
                 icon = it.icon
             )
         },
+        clouds.all,
         wind.speed,
         wind.deg,
         wind.gust,

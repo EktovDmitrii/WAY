@@ -49,6 +49,7 @@ fun CommonInfoDbModel.toModel(): CommonInfo {
                         icon = weatherDbModel.icon
                     )
                 },
+                Clouds(it.all),
                 Wind(it.speed, it.deg, it.gust),
                 it.visibility,
                 it.pop,

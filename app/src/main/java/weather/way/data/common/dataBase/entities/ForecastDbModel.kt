@@ -21,6 +21,7 @@ data class ForecastDbModel(
     val temp_kf: Double,
     @TypeConverters(WeatherDbModelConvertor::class)
     val weather: List<WeatherDbModel>,
+    val all: Int,
     val speed: Double,
     val deg: Int,
     val gust: Double,
@@ -49,6 +50,7 @@ fun ForecastDbModel.toModel(): HourlyForecast {
             description = weatherDbModel.description,
             icon = weatherDbModel.icon)
         },
+        Clouds(all),
         Wind(speed, deg, gust),
         visibility,
         pop,
