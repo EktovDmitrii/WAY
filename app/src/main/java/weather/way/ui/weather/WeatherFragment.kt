@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.bumptech.glide.Glide
 import com.github.matteobattilana.weather.PrecipType
@@ -45,7 +44,6 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.getForecastByName(getData().city.name)
@@ -77,12 +75,9 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         setBackground(commonInfo)
         setComponentsVisibility()
         setAllBinds(commonInfo)
-//        checkDayTime(commonInfo)
-//        binding.cvSunInfoCard.setBackgroundResource(R.drawable.round_corners)
         setAdapter()
         adapter?.myData = commonInfo.list
         adapter?.submitList(commonInfo.list)
-
     }
 
     private fun setAllBinds(
@@ -122,7 +117,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
             cvWindInfoCard.visibility = View.VISIBLE
             tvUsefulInfo.visibility = View.VISIBLE
             cvSunInfoCard.visibility = View.VISIBLE
-            tvFellsLike.visibility = View.VISIBLE
+            tvFeelsLike.visibility = View.VISIBLE
             cvWindInfoCard.visibility = View.VISIBLE
             weatherProgressBar.visibility = View.GONE
         }
@@ -138,12 +133,6 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
     private fun setupAnimation() {
         binding.avSunIcon.repeatCount = LottieDrawable.INFINITE
     }
-
-//    private fun checkDayTime(commonInfo: CommonInfo) {
-//        if (commonInfo.list[0].dt >= commonInfo.city.sunrise && commonInfo.list[0].dt <= commonInfo.city.sunset)
-//            Glide.with(this).load(R.drawable.ic_sunny_vector)
-//                .into(binding.ivSunIcon)
-//    }
 
     private fun setWeatherBackground(commonInfo: CommonInfo) {
         if (commonInfo.list[0].weather[0].main == Constants.RAIN) {

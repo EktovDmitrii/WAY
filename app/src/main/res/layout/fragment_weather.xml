@@ -28,7 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
+            app:layout_constraintTop_toTopOf="parent">
 
         </com.github.matteobattilana.weather.WeatherView>
 
@@ -76,7 +76,7 @@
             tools:text="15" />
 
         <TextView
-            android:id="@+id/tv_fells_like"
+            android:id="@+id/tv_feels_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
@@ -85,6 +85,7 @@
             android:textSize="30sp"
             android:visibility="invisible"
             app:layout_constraintEnd_toStartOf="@id/tv_feels_like_value"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_current_temp" />
 
@@ -96,7 +97,8 @@
             android:textColor="@color/white"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_fells_like"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/tv_feels_like"
             app:layout_constraintTop_toBottomOf="@id/tv_current_temp"
             tools:text="7" />
 
@@ -109,7 +111,7 @@
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_fells_like">
+            app:layout_constraintTop_toBottomOf="@id/tv_feels_like">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_weather_per_hour"
@@ -166,11 +168,11 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:visibility="invisible"
-                app:lottie_autoPlay="true"
-                app:lottie_rawRes="@raw/sun_rise_set"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/sun_rise_set" />
 
             <TextView
                 android:id="@+id/tv_sunset_title"
@@ -182,9 +184,8 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:visibility="invisible"
-                app:layout_constraintEnd_toStartOf="@id/tv_sunset_value"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintEnd_toStartOf="@id/tv_sunset_value" />
 
             <TextView
                 android:id="@+id/tv_sunset_value"
@@ -229,10 +230,10 @@
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
-                app:layout_constraintGuide_percent="0.5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/wind_card"
@@ -248,9 +249,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="@string/wind"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -268,27 +269,29 @@
                     android:id="@+id/tv_wind_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="5dp"
                     android:layout_marginStart="20dp"
-                    tools:text="3,6"
-                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
                     android:textColor="@color/white"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_wind" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_wind"
+                    tools:text="3,6" />
 
                 <TextView
                     android:id="@+id/tv_wind_measure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginStart="5dp"
-                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/wind_speed_measure"
                     android:textColor="@color/white"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     android:visibility="visible"
                     app:layout_constraintStart_toEndOf="@id/tv_wind_value"
                     app:layout_constraintTop_toBottomOf="@id/iv_wind" />
@@ -388,24 +391,24 @@
                     android:id="@+id/tv_humidity_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="30dp"
-                    tools:text="3,6"
-                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:textColor="@color/white"
                     android:textSize="20sp"
+                    android:textStyle="bold"
                     android:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_humidity" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_humidity"
+                    tools:text="3,6" />
 
                 <TextView
                     android:id="@+id/tv_humidity_measure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/percent"
                     android:textColor="@color/white"
                     android:textSize="20sp"
@@ -451,9 +454,9 @@
                     android:id="@+id/tv_cloudiness_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -467,9 +470,9 @@
                     android:id="@+id/tv_cloudiness_measure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/percent"
                     android:textColor="@color/white"
                     android:textSize="20sp"
