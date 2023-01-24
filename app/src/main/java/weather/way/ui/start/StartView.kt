@@ -12,6 +12,10 @@ interface StartView : MvpView {
 
     fun clearGeoData()
 
+    fun errorName()
+
+    fun errorGeo()
+
     fun startWeatherFragment(commonInfo: CommonInfo)
 
 }

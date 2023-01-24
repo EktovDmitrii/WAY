@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationCallback
@@ -93,6 +94,22 @@ class StartFragment : MvpAppCompatFragment(), StartView {
 
     override fun startWeatherFragment(commonInfo: CommonInfo) {
         launchCommonWeatherFragment(commonInfo)
+    }
+
+    override fun errorName() {
+        Toast.makeText(
+            requireContext(),
+            "Invalid name! Please, change city name",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    override fun errorGeo() {
+        Toast.makeText(
+            requireContext(),
+            "We can't find you ;( Please, check your geolocation settings",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private val locationCallback = object : LocationCallback() {

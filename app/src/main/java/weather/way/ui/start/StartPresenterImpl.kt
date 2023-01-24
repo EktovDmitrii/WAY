@@ -1,6 +1,7 @@
 package weather.way.ui.start
 
 import android.util.Log
+import android.widget.Toast
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -27,6 +28,7 @@ class StartPresenterImpl(
                 viewState.startWeatherFragment(it)
                 viewState.clearSearchField()
             }, {
+                viewState.errorName()
             })
         compositeDisposable.add(disposable)
     }
@@ -38,9 +40,8 @@ class StartPresenterImpl(
             .subscribe({
                 viewState.startWeatherFragment(it)
                 viewState.clearGeoData()
-                Log.d("WEATHER_CHECK", it.toString())
             }, {
-                Log.d("WEATHER_CHECK", "Ебаный сука нахуй нет данных")
+                viewState.errorGeo()
             })
         compositeDisposable.add(disposable)
     }
