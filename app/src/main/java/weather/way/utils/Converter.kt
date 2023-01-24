@@ -37,6 +37,14 @@ fun convertFahrenheitToCelsius(degrees: Double): Int {
     return (degrees - 273.15).toInt()
 }
 
+fun convertPressureToMmHg(pressure: Int): Int{
+    return (pressure / 1.333).toInt()
+}
+
+fun convertMPerSecToKmPerSec(speed: Double): Int{
+    return (speed * 3.6).toInt()
+}
+
 fun findRightTimezone(commonInfo: CommonInfo): String{
     var timezone = ""
     if (commonInfo.city.timezone == 0){

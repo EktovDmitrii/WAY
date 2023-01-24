@@ -17,12 +17,9 @@ import weather.way.R
 import weather.way.databinding.FragmentWeatherBinding
 import weather.way.domain.model.CommonInfo
 import weather.way.ui.favourite.FavouriteFragment
-import weather.way.utils.Constants
+import weather.way.utils.*
 import weather.way.utils.Constants.CELSIUS
 import weather.way.utils.Constants.WEATHER_DATA
-import weather.way.utils.convertFahrenheitToCelsius
-import weather.way.utils.convertTimestampToTime
-import weather.way.utils.convertTimestampToTimeForecast
 
 class WeatherFragment : MvpAppCompatFragment(), WeatherView {
 
@@ -99,8 +96,8 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
                     convertFahrenheitToCelsius(main.temp).toString() + CELSIUS
                 tvFeelsLikeValue.text =
                     convertFahrenheitToCelsius(main.feels_like).toString() + CELSIUS
-                tvWindValue.text = wind.gust.toString()
-                tvPressureValue.text = main.pressure.toString()
+                tvWindValue.text = convertMPerSecToKmPerSec(wind.gust).toString()
+                tvPressureValue.text = convertPressureToMmHg(main.pressure).toString()
                 tvHumidityValue.text = main.humidity.toString()
                 tvCloudinessValue.text = clouds.all.toString()
             }
