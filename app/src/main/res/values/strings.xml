@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">WAY</string>
+    <string name="feels_like">Feels like</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="saved_cities">Saved cities</string>
+    <string name="city_search">Find your city</string>
+    <string name="search">Search!</string>
+    <string name="we_can_find_you">Or we can find you</string>
+    <string name="find_me">Find me!</string>
+    <string name="go_to_my_favourite">Go to your saved cities</string>
+    <string name="useful_info">Useful information</string>
+    <string name="wind">Wind</string>
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="cloudiness">Cloudiness</string>
+    <string name="percent"> %</string>
+    <string name="pressure_measure"> mmHg</string>
+    <string name="wind_speed_measure"> km/h</string>
+
 </resources>
