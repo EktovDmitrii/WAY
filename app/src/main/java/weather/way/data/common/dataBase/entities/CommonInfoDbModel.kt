@@ -66,6 +66,6 @@ fun CommonInfoDbModel.toModel(): CommonInfo {
             sunrise,
             sunset
         ),
-    isInFavourite = false
+        isInFavourite = false
     )
 }

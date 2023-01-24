@@ -10,12 +10,12 @@ import weather.way.data.common.network.ApiFactory
 import weather.way.data.common.network.RepositoryImpl
 import weather.way.domain.ApiRepository
 import weather.way.domain.DaoRepository
-import weather.way.ui.weather.AbstractWeatherPresenter
-import weather.way.ui.weather.WeatherPresenterImpl
 import weather.way.ui.favourite.AbstractFavouritePresenter
 import weather.way.ui.favourite.FavouritePresenterImpl
 import weather.way.ui.start.AbstractStartPresenter
 import weather.way.ui.start.StartPresenterImpl
+import weather.way.ui.weather.AbstractWeatherPresenter
+import weather.way.ui.weather.WeatherPresenterImpl
 
 val appModule = module {
     single {
@@ -58,5 +58,4 @@ val appModule = module {
     factory<AbstractStartPresenter> {
         StartPresenterImpl(get())
     }
-
 }

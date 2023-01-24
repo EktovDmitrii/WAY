@@ -7,13 +7,11 @@ import weather.way.ui.start.StartFragment
 
 class MainActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         launchSearchFragment()
     }
-
 
     private fun launchSearchFragment() {
         supportFragmentManager.beginTransaction()

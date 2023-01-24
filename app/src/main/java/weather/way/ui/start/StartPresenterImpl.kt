@@ -1,7 +1,5 @@
 package weather.way.ui.start
 
-import android.util.Log
-import android.widget.Toast
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -18,7 +16,6 @@ class StartPresenterImpl(
     private val getForecastByNameUseCase = GetForecastByNameUseCase(repository)
     private val getHourlyForecastUseCase = GetHourlyForecastUseCase(repository)
     private val compositeDisposable = CompositeDisposable()
-
 
     override fun searchCityByName(cityName: String) {
         val disposable = getForecastByNameUseCase.getForecastByName(cityName)
@@ -50,6 +47,4 @@ class StartPresenterImpl(
     override fun onDestroy() {
         compositeDisposable.dispose()
     }
-
-
 }

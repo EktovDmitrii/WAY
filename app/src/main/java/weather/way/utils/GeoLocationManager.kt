@@ -11,7 +11,7 @@ class GeoLocationManager(context: Context) {
     private val context: Context = context
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
-    private var locationRequest= LocationRequest()
+    private var locationRequest = LocationRequest()
     private var startedLocationTracking = false
 
     init {
@@ -32,9 +32,11 @@ class GeoLocationManager(context: Context) {
     fun startLocationTracking(locationCallback: LocationCallback) {
         if (!startedLocationTracking) {
             //noinspection MissingPermission
-            fusedLocationClient.requestLocationUpdates(locationRequest,
+            fusedLocationClient.requestLocationUpdates(
+                locationRequest,
                 locationCallback,
-                Looper.getMainLooper())
+                Looper.getMainLooper()
+            )
 
             this.locationCallback = locationCallback
 

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -15,9 +16,9 @@ import weather.way.domain.model.CommonInfo
 import weather.way.ui.start.StartFragment
 import weather.way.ui.weather.WeatherFragment
 import weather.way.utils.Constants
+import weather.way.utils.Constants.EMPTY_FAVOURITE
 
 class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
-
 
     private lateinit var adapter: FavouriteAdapter
 
@@ -30,7 +31,6 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
     private var _binding: FragmentFavouriteBinding? = null
     val binding: FragmentFavouriteBinding
         get() = _binding ?: throw RuntimeException(Constants.FRAGMENT_FAVOURITE_BINDING_NULL)
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,9 +52,12 @@ class FavouriteFragment : MvpAppCompatFragment(), FavouriteView {
     }
 
     override fun updateAllData(commonInfo: CommonInfo) {
-      presenter.getForecastByName(commonInfo.city.name)
+        presenter.getForecastByName(commonInfo.city.name)
     }
 
+    override fun showError() {
+        Toast.makeText(requireContext(), EMPTY_FAVOURITE, Toast.LENGTH_SHORT).show()
+    }
 
     override fun showFavouriteList(commonInfo: List<CommonInfo>) {
         adapter.myData = commonInfo

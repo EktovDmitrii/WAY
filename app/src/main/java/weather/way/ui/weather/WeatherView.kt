@@ -8,9 +8,10 @@ import weather.way.domain.model.CommonInfo
 @StateStrategyType(SingleStateStrategy::class)
 interface WeatherView : MvpView {
 
-
     fun showHourlyForecast(commonInfo: CommonInfo)
 
     fun addCityToFavouriteList(commonInfo: CommonInfo)
+
+    fun showError()
 
 }

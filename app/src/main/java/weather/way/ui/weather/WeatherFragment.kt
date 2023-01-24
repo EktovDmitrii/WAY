@@ -1,7 +1,6 @@
 package weather.way.ui.weather
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +18,10 @@ import weather.way.databinding.FragmentWeatherBinding
 import weather.way.domain.model.CommonInfo
 import weather.way.ui.favourite.FavouriteFragment
 import weather.way.utils.*
+import weather.way.utils.Constants.ALREADY_ADDED
 import weather.way.utils.Constants.CELSIUS
 import weather.way.utils.Constants.WEATHER_DATA
+import weather.way.utils.Constants.WRONG
 
 class WeatherFragment : MvpAppCompatFragment(), WeatherView {
 
@@ -33,7 +34,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
     fun provide(): AbstractWeatherPresenter = get()
 
     private var _binding: FragmentWeatherBinding? = null
-    val binding: FragmentWeatherBinding
+    private val binding: FragmentWeatherBinding
         get() = _binding ?: throw RuntimeException(Constants.FRAGMENT_WEATHER_BINDING_NULL)
 
     override fun onCreateView(
@@ -55,17 +56,16 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         adapter = null
     }
 
-    private fun setAdapter() {
-        adapter = WeatherPerHourAdapter()
-        binding.rvWeatherPerHour.adapter = adapter
-    }
-
     private fun getData(): CommonInfo {
         return requireArguments().getSerializable(WEATHER_DATA) as CommonInfo
     }
 
     override fun addCityToFavouriteList(commonInfo: CommonInfo) {
         binding.btnAddToFavourite.visibility = View.VISIBLE
+    }
+
+    override fun showError() {
+        Toast.makeText(requireContext(), WRONG, Toast.LENGTH_SHORT).show()
     }
 
     override fun showHourlyForecast(commonInfo: CommonInfo) {
@@ -78,6 +78,11 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         setAdapter()
         adapter?.myData = commonInfo.list
         adapter?.submitList(commonInfo.list)
+    }
+
+    private fun setAdapter() {
+        adapter = WeatherPerHourAdapter()
+        binding.rvWeatherPerHour.adapter = adapter
     }
 
     private fun setAllBinds(
@@ -105,7 +110,6 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         }
     }
 
-
     private fun setComponentsVisibility() {
         with(binding) {
             tvSunriseTitle.visibility = View.VISIBLE
@@ -125,8 +129,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
 
     private fun setFavouriteButton(commonInfo: CommonInfo) {
         if (commonInfo.isInFavourite) {
-            Glide.with(this).load(R.drawable.ic_in_favourite)
-                .into(binding.btnAddToFavourite)
+            changeFavouriteBtn()
         }
     }
 
@@ -162,18 +165,24 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
     }
 
     private fun setFavouriteClickListener(commonInfo: CommonInfo) {
-        Log.d("IS_IN_FAVOURITE", "${commonInfo.isInFavourite}")
         binding.btnAddToFavourite.setOnClickListener {
             if (!commonInfo.isInFavourite) {
                 presenter.addToFavourite(commonInfo)
-                Glide.with(this).load(R.drawable.ic_in_favourite)
-                    .into(binding.btnAddToFavourite)
+                changeFavouriteBtn()
             } else {
-                Toast.makeText(requireContext(), "Already added", Toast.LENGTH_SHORT).show()
+                showToast()
             }
             commonInfo.isInFavourite = true
-            Log.d("IS_IN_FAVOURITE", "after change: ${commonInfo.isInFavourite}")
         }
+    }
+
+    private fun changeFavouriteBtn() {
+        Glide.with(this).load(R.drawable.ic_in_favourite)
+            .into(binding.btnAddToFavourite)
+    }
+
+    private fun showToast() {
+        Toast.makeText(requireContext(), ALREADY_ADDED, Toast.LENGTH_SHORT).show()
     }
 
     private fun launchFavouriteFragment() {

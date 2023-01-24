@@ -2,5 +2,5 @@ package weather.way.ui.weather
 
 import moxy.MvpPresenter
 
-abstract class AbstractWeatherPresenter: MvpPresenter<WeatherView>(), WeatherPresenter {
+abstract class AbstractWeatherPresenter : MvpPresenter<WeatherView>(), WeatherPresenter {
 }

@@ -1,6 +1,5 @@
 package weather.way.ui.weather
 
-import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -11,7 +10,6 @@ import weather.way.domain.model.CommonInfo
 import weather.way.domain.useCases.AddCityToFavouriteUseCase
 import weather.way.domain.useCases.GetForecastByNameUseCase
 import weather.way.domain.useCases.GetHourlyForecastUseCase
-import weather.way.ui.weather.AbstractWeatherPresenter
 
 @InjectViewState
 class WeatherPresenterImpl(
@@ -30,9 +28,8 @@ class WeatherPresenterImpl(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 viewState.showHourlyForecast(it)
-                Log.d("WEATHER_CHECK", it.toString())
             }, {
-                Log.d("WEATHER_CHECK", "No data found")
+                viewState.showError()
             })
         compositeDisposable.add(disposable)
     }
@@ -43,9 +40,8 @@ class WeatherPresenterImpl(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 viewState.showHourlyForecast(it)
-                Log.d("WEATHER_CHECK", it.toString())
             }, {
-                Log.d("WEATHER_CHECK", "No data found")
+                viewState.showError()
             })
         compositeDisposable.add(disposable)
     }
@@ -56,7 +52,6 @@ class WeatherPresenterImpl(
             .observeOn((AndroidSchedulers.mainThread()))
             .subscribe {
                 viewState.addCityToFavouriteList(commonInfo)
-                Log.d("ISINFAVOURITE", "${commonInfo.city.name}")
             }
         compositeDisposable.add(disposable)
     }

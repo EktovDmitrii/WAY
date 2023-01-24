@@ -13,4 +13,6 @@ interface FavouriteView : MvpView {
     fun updateAllData(commonInfo: CommonInfo)
 
     fun deleteCity(commonInfo: CommonInfo)
+
+    fun showError()
 }

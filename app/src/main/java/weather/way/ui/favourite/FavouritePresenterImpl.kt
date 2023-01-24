@@ -1,15 +1,17 @@
 package weather.way.ui.favourite
 
-import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.channels.consumesAll
 import moxy.InjectViewState
 import weather.way.domain.ApiRepository
 import weather.way.domain.DaoRepository
 import weather.way.domain.model.CommonInfo
-import weather.way.domain.useCases.*
+import weather.way.domain.useCases.DeleteCityFromFavouriteUseCase
+import weather.way.domain.useCases.GetFavouriteListUseCase
+import weather.way.domain.useCases.GetForecastByNameUseCase
+import weather.way.domain.useCases.UpdateDataUseCase
+import weather.way.utils.Constants.NO_VALUE
 
 @InjectViewState
 class FavouritePresenterImpl(
@@ -33,7 +35,7 @@ class FavouritePresenterImpl(
                 }
                 viewState.showFavouriteList(it)
             }, {
-                throw RuntimeException("no value")
+                viewState.showError()
             })
         compositeDisposable.add(disposable)
     }
@@ -55,9 +57,8 @@ class FavouritePresenterImpl(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 updateData(it)
-                Log.d("WEATHER_CHECK", it.toString())
             }, {
-                Log.d("WEATHER_CHECK", "No data found")
+                throw RuntimeException(NO_VALUE)
             })
         compositeDisposable.add(disposable)
     }
@@ -67,13 +68,11 @@ class FavouritePresenterImpl(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-//                getForecastByName(commonInfo.city.name)
             }, {
-                throw RuntimeException("no value")
+                throw RuntimeException(NO_VALUE)
             })
         compositeDisposable.add(disposable)
     }
-
 
     override fun onDestroy() {
         compositeDisposable.dispose()

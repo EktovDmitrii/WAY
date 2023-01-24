@@ -25,21 +25,10 @@ class FavouriteAdapter(
     override fun onBindViewHolder(holder: FavouriteViewHolder, position: Int) {
         val weather = myData[position]
         holder.bind(weather)
-//        holder.itemView.setOnClickListener {
-//            cityListener.onCityClick(weather)
-//            deleteListener.onDeleteClick(weather)
     }
-
 
     override fun getItemCount(): Int {
         return myData.size
     }
 }
 
-//    interface OnCityClickListener {
-//        fun onCityClick(commonInfo: CommonInfo)
-//    }
-
-//    interface OnDeleteClickListener {
-//        fun onDeleteClick(commonInfo: CommonInfo)
-//    }

@@ -1,11 +1,11 @@
 package weather.way.ui.start
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,17 +25,19 @@ import weather.way.domain.model.CommonInfo
 import weather.way.ui.favourite.FavouriteFragment
 import weather.way.ui.weather.WeatherFragment
 import weather.way.utils.Constants.FRAGMENT_START_BINDING_NULL
+import weather.way.utils.Constants.INVALID_GEO
+import weather.way.utils.Constants.INVALID_NAME
+import weather.way.utils.Constants.LOCATION_PERMISSION_CODE
 import weather.way.utils.GeoLocationManager
 
 class StartFragment : MvpAppCompatFragment(), StartView {
     private lateinit var locationManager: GeoLocationManager
     private var locationTrackingRequested = false
-    private val LOCATION_PERMISSION_CODE = 1000
     private var lon: String? = null
     private var lat: String? = null
 
     private var _binding: FragmentStartBinding? = null
-    val binding: FragmentStartBinding
+    private val binding: FragmentStartBinding
         get() = _binding ?: throw RuntimeException(FRAGMENT_START_BINDING_NULL)
 
     @InjectPresenter
@@ -43,7 +45,6 @@ class StartFragment : MvpAppCompatFragment(), StartView {
 
     @ProvidePresenter
     fun provide(): AbstractStartPresenter = get()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,20 +56,22 @@ class StartFragment : MvpAppCompatFragment(), StartView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        locationManager = GeoLocationManager(requireContext())
+        initLocationManager()
+        setClickListeners()
+    }
+
+    private fun setClickListeners() {
         binding.btnStartSearch.setOnClickListener {
             presenter.searchCityByName(binding.etCityNameSearch.text.toString())
         }
         binding.btnStartFavouriteFrag.setOnClickListener {
             launchFavouriteFragment()
         }
-
         binding.btnFindByLocation.setOnClickListener {
             val permissionGranted = ActivityCompat.checkSelfPermission(
                 requireContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
             ) == PackageManager.PERMISSION_GRANTED
-
             if (permissionGranted) {
                 locationManager.startLocationTracking(locationCallback)
                 locationTrackingRequested = true
@@ -78,12 +81,14 @@ class StartFragment : MvpAppCompatFragment(), StartView {
         }
     }
 
+    private fun initLocationManager() {
+        locationManager = GeoLocationManager(requireContext())
+    }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 
     override fun clearSearchField() {
         binding.etCityNameSearch.text = null
@@ -105,7 +110,7 @@ class StartFragment : MvpAppCompatFragment(), StartView {
     override fun errorName() {
         Toast.makeText(
             requireContext(),
-            "Invalid name! Please, change city name",
+            INVALID_NAME,
             Toast.LENGTH_SHORT
         ).show()
     }
@@ -113,11 +118,10 @@ class StartFragment : MvpAppCompatFragment(), StartView {
     override fun errorGeo() {
         Toast.makeText(
             requireContext(),
-            "We can't find you ;( Please, check your geolocation settings",
+            INVALID_GEO,
             Toast.LENGTH_SHORT
         ).show()
     }
-
 
     private fun hideKeyboardFrom(context: Context, view: View?) {
         val imm =
@@ -134,7 +138,6 @@ class StartFragment : MvpAppCompatFragment(), StartView {
                 locationManager.stopLocationTracking()
             }
             presenter.searchCityByGeo(lon, lat)
-
         }
     }
 
@@ -142,12 +145,11 @@ class StartFragment : MvpAppCompatFragment(), StartView {
         var permissionGranted = false
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val locationPermission = arrayOf(
-                android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
             )
             val locationPermissionGranted = ContextCompat.checkSelfPermission(
                 requireContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_DENIED
             if (locationPermissionGranted) {
                 requestPermissions(locationPermission, LOCATION_PERMISSION_CODE)
@@ -163,19 +165,14 @@ class StartFragment : MvpAppCompatFragment(), StartView {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == LOCATION_PERMISSION_CODE) {
-            if (grantResults.size === 2 &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                grantResults[1] == PackageManager.PERMISSION_GRANTED
-            ) {
-                locationManager.startLocationTracking(locationCallback)
-            } else {
-                Log.d("MainActivity", "Permission denied")
-            }
+        if (requestCode == LOCATION_PERMISSION_CODE) if (grantResults.size === 2 &&
+            grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+            grantResults[1] == PackageManager.PERMISSION_GRANTED
+        ) {
+            locationManager.startLocationTracking(locationCallback)
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
-
 
     private fun launchFavouriteFragment() {
         requireActivity().supportFragmentManager.beginTransaction()

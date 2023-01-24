@@ -6,6 +6,6 @@ import weather.way.domain.model.CommonInfo
 
 class DeleteCityFromFavouriteUseCase(private val repository: DaoRepository) {
     fun deleteCity(commonInfo: CommonInfo): Completable {
-       return repository.deleteCity(commonInfo)
+        return repository.deleteCity(commonInfo)
     }
 }

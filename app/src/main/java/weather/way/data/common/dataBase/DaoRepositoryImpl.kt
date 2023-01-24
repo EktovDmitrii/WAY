@@ -4,7 +4,8 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import weather.way.data.common.dataBase.entities.toModel
 import weather.way.domain.DaoRepository
-import weather.way.domain.model.*
+import weather.way.domain.model.CommonInfo
+import weather.way.domain.model.toDbEntity
 
 class DaoRepositoryImpl(
     private val weatherDao: WeatherDao
@@ -22,7 +23,7 @@ class DaoRepositoryImpl(
     }
 
     override fun deleteCity(commonInfo: CommonInfo): Completable {
-       return weatherDao.deleteCity(commonInfo.city.id)
+        return weatherDao.deleteCity(commonInfo.city.id)
     }
 
     override fun updateData(commonInfo: CommonInfo): Completable {

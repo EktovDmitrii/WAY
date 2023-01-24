@@ -9,7 +9,7 @@ import weather.way.domain.model.HourlyForecast
 class WeatherPerHourAdapter :
     ListAdapter<HourlyForecast, WeatherPerHourViewHolder>(WeatherPerHourDiffCallBack) {
 
-    var myData : List<HourlyForecast> = listOf()
+    var myData: List<HourlyForecast> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherPerHourViewHolder {
         val view = LayoutInflater.from(parent.context)

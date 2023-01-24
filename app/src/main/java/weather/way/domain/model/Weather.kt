@@ -8,6 +8,7 @@ data class Weather(
     val description: String,
     val icon: String
 )
+
 fun Weather.toDbEntity(): WeatherDbModel {
     return WeatherDbModel(id, main, description, icon)
 }
