@@ -16,6 +16,8 @@ interface StartView : MvpView {
 
     fun errorGeo()
 
+    fun hideKeyBoard()
+
     fun startWeatherFragment(commonInfo: CommonInfo)
 
 }

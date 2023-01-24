@@ -1,5 +1,7 @@
 package weather.way.ui.start
 
+import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -7,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -22,7 +25,6 @@ import weather.way.domain.model.CommonInfo
 import weather.way.ui.favourite.FavouriteFragment
 import weather.way.ui.weather.WeatherFragment
 import weather.way.utils.Constants.FRAGMENT_START_BINDING_NULL
-import weather.way.utils.Constants.FRAGMENT_WEATHER_BINDING_NULL
 import weather.way.utils.GeoLocationManager
 
 class StartFragment : MvpAppCompatFragment(), StartView {
@@ -96,6 +98,10 @@ class StartFragment : MvpAppCompatFragment(), StartView {
         launchCommonWeatherFragment(commonInfo)
     }
 
+    override fun hideKeyBoard() {
+        hideKeyboardFrom(requireContext(), view)
+    }
+
     override fun errorName() {
         Toast.makeText(
             requireContext(),
@@ -110,6 +116,13 @@ class StartFragment : MvpAppCompatFragment(), StartView {
             "We can't find you ;( Please, check your geolocation settings",
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+
+    private fun hideKeyboardFrom(context: Context, view: View?) {
+        val imm =
+            context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     private val locationCallback = object : LocationCallback() {

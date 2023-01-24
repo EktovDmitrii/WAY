@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieDrawable
 import com.bumptech.glide.Glide
 import com.github.matteobattilana.weather.PrecipType
 import kotlinx.android.synthetic.main.fragment_weather.*
@@ -75,7 +77,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         setBackground(commonInfo)
         setComponentsVisibility()
         setAllBinds(commonInfo)
-        checkDayTime(commonInfo)
+//        checkDayTime(commonInfo)
 //        binding.cvSunInfoCard.setBackgroundResource(R.drawable.round_corners)
         setAdapter()
         adapter?.myData = commonInfo.list
@@ -100,6 +102,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
                 tvPressureValue.text = convertPressureToMmHg(main.pressure).toString()
                 tvHumidityValue.text = main.humidity.toString()
                 tvCloudinessValue.text = clouds.all.toString()
+                setupAnimation()
             }
             btnFavouriteCities.setOnClickListener {
                 launchFavouriteFragment()
@@ -114,7 +117,7 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
             tvSunsetTitle.visibility = View.VISIBLE
             btnAddToFavourite.visibility = View.VISIBLE
             btnFavouriteCities.visibility = View.VISIBLE
-            ivSunIcon.visibility = View.VISIBLE
+            avSunIcon.visibility = View.VISIBLE
             cvRvCard.visibility = View.VISIBLE
             cvWindInfoCard.visibility = View.VISIBLE
             tvUsefulInfo.visibility = View.VISIBLE
@@ -132,11 +135,15 @@ class WeatherFragment : MvpAppCompatFragment(), WeatherView {
         }
     }
 
-    private fun checkDayTime(commonInfo: CommonInfo) {
-        if (commonInfo.list[0].dt >= commonInfo.city.sunrise && commonInfo.list[0].dt <= commonInfo.city.sunset)
-            Glide.with(this).load(R.drawable.ic_sunny_vector)
-                .into(binding.ivSunIcon)
+    private fun setupAnimation() {
+        binding.avSunIcon.repeatCount = LottieDrawable.INFINITE
     }
+
+//    private fun checkDayTime(commonInfo: CommonInfo) {
+//        if (commonInfo.list[0].dt >= commonInfo.city.sunrise && commonInfo.list[0].dt <= commonInfo.city.sunset)
+//            Glide.with(this).load(R.drawable.ic_sunny_vector)
+//                .into(binding.ivSunIcon)
+//    }
 
     private fun setWeatherBackground(commonInfo: CommonInfo) {
         if (commonInfo.list[0].weather[0].main == Constants.RAIN) {

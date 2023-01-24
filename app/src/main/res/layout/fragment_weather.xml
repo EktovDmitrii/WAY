@@ -30,15 +30,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" >
 
-            <TextView
-                android:id="@+id/tv_sunset_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="@string/sunset"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:visibility="invisible" />
         </com.github.matteobattilana.weather.WeatherView>
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -150,6 +141,7 @@
                 android:text="@string/sunrise"
                 android:textColor="@color/white"
                 android:textSize="15sp"
+                android:textStyle="bold"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tv_sunrise_value"
@@ -162,22 +154,37 @@
                 android:layout_margin="5dp"
                 android:textColor="@color/white"
                 android:textSize="15sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_sunrise_title"
                 tools:text="4:20" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_sun_icon"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/av_sun_icon"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="40dp"
-                android:src="@drawable/ic_moon_vector"
+                android:layout_marginBottom="20dp"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/sun_rise_set"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_sunset_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@string/sunset"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toStartOf="@id/tv_sunset_value"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
             <TextView
                 android:id="@+id/tv_sunset_value"
@@ -186,6 +193,7 @@
                 android:layout_margin="5dp"
                 android:textColor="@color/white"
                 android:textSize="15sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="16:20" />
@@ -260,7 +268,9 @@
                     android:id="@+id/tv_wind_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="20dp"
                     tools:text="3,6"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -273,7 +283,8 @@
                     android:id="@+id/tv_wind_measure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="5dp"
                     android:textStyle="bold"
                     android:text="@string/wind_speed_measure"
                     android:textColor="@color/white"

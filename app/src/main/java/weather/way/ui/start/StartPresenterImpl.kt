@@ -25,6 +25,7 @@ class StartPresenterImpl(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                viewState.hideKeyBoard()
                 viewState.startWeatherFragment(it)
                 viewState.clearSearchField()
             }, {
