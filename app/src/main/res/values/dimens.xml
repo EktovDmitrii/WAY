@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="small_margin">5dp</dimen>
+    <dimen name="small_padding">3dp</dimen>
+    <dimen name="big_text_size">25sp</dimen>
+    <dimen name="big_margin">40dp</dimen>
+    <dimen name="huge_text_size">30sp</dimen>
+    <dimen name="big_height">100dp</dimen>
+    <dimen name="medium_margin">10dp</dimen>
+    <dimen name="bigger_margin">45dp</dimen>
+    <dimen name="medium_image_size">50dp</dimen>
+    <dimen name="big_medium_margin">15dp</dimen>
+    <dimen name="huge_margin">60dp</dimen>
+    <dimen name="zero_width">0dp</dimen>
+    <dimen name="large_margin">200dp</dimen>
+    <dimen name="usual_margin">20dp</dimen>
+    <dimen name="medium_text_size">20sp</dimen>
+    <dimen name="city_name_text_size">50sp</dimen>
+    <dimen name="main_temp_size">70sp</dimen>
+    <dimen name="useful_info_margin">30dp</dimen>
+    <dimen name="sun_info_text_size">15sp</dimen>
+</resources>

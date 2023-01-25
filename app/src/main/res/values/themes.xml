@@ -22,4 +22,29 @@
         <item name="android:paddingEnd">24dp</item>
         <item name="android:src">@drawable/ic_delete_icon</item>
     </style>
+
+    <style name="usefulInfoText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/medium_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="sunInfoText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/sun_info_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="startFragText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/huge_text_size</item>
+    </style>
+
+    <style name="weatherPerHourText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/medium_margin</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/medium_text_size</item>
+    </style>
 </resources>
