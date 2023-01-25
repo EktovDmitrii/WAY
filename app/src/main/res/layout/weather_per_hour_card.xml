@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@android:color/transparent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,22 +12,18 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_hour_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            tools:text="temp"
-            tools:textColor="@color/black"
+            style="@style/weatherPerHourText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="temp"
+            tools:textColor="@color/black" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_weather"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
+            android:layout_width="@dimen/big_margin"
+            android:layout_height="@dimen/big_margin"
+            android:layout_margin="@dimen/medium_margin"
             android:src="@drawable/ic_launcher_foreground"
             app:layout_constraintBottom_toTopOf="@id/tv_hour_temp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,18 +32,13 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_hour_temp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            tools:text="time"
-            tools:textColor="@color/black"
+            style="@style/weatherPerHourText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_weather" />
+            app:layout_constraintTop_toBottomOf="@id/iv_weather"
+            tools:text="time"
+            tools:textColor="@color/black" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </LinearLayout>
+</LinearLayout>

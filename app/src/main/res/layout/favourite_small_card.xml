@@ -5,7 +5,7 @@
     android:id="@+id/swipe_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="@dimen/small_margin"
     android:background="@android:color/transparent"
     app:draggedItem="@id/drag_item"
     app:rightItem="@id/right_view">
@@ -27,9 +27,9 @@
             android:id="@+id/tv_city_name_in_fav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="3dp"
+            android:padding="@dimen/small_padding"
             android:textColor="@color/white"
-            android:textSize="25sp"
+            android:textSize="@dimen/big_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Moscow" />
@@ -38,18 +38,18 @@
             android:id="@+id/tv_city_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="3dp"
+            android:padding="@dimen/small_padding"
             android:textColor="@color/white"
-            android:textSize="25sp"
+            android:textSize="@dimen/big_text_size"
             app:layout_constraintEnd_toStartOf="@id/iv_weather_icon"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="25'C" />
 
         <ImageView
             android:id="@+id/iv_weather_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="3dp"
+            android:layout_width="@dimen/big_margin"
+            android:layout_height="@dimen/big_margin"
+            android:padding="@dimen/small_padding"
             android:src="@drawable/ic_launcher_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,5 +57,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </com.zerobranch.layout.SwipeLayout>
+</com.zerobranch.layout.SwipeLayout>
